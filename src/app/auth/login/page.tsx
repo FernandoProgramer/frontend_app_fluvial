@@ -1,5 +1,4 @@
 import Input from "@/components/ui/Input";
-import LinkButton from "@/components/ui/LinkButton";
 import LinkForms from "@/components/ui/LinkSimple";
 import { CircleChevronLeft, LogIn, Ship } from "lucide-react";
 import Link from "next/link";
