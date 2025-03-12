@@ -18,5 +18,5 @@
 }
 
 body {
-  @apply bg-[#131C2F] text-white m-0 p-0
+  @apply bg-gray-950 text-white m-0 p-0
 }

@@ -1,13 +1,17 @@
-import HeroSection from "./HeroSection";
-import ProblemsSolutions from "./ProblemsSolutions";
-import RadarSection from "./RadarSection";
+import Link from "next/link";
 
 export default function LadingPage() {
     return (
-        <>
-            <HeroSection />
-            <RadarSection />
-            <ProblemsSolutions />
-        </>
-    )
-}
+        <section className="p-4">
+            Lading Page
+
+
+            <Link
+                className="p-2 bg-blue-700 rounded-xl mx-4"
+                href="auth/login"
+            >
+                Inicar Sesión
+            </Link>
+        </section>
+    );
+}   

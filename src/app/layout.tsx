@@ -1,5 +1,4 @@
-import HeaderLading from '@/components/layout/HeaderLading'
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 import './globals.css'
 import { Noto_Sans } from 'next/font/google'
 
@@ -14,12 +13,7 @@ const notoSans = Noto_Sans({
 export default function RootLayour({ children }: { children: ReactNode }) {
   return (
     <html>
-      <body className={notoSans.className}>
-        <HeaderLading />
-        <main>
-          {children}
-        </main>
-      </body>
+      <body className={notoSans.className}>{children}</body>
     </html>
   )
 }
