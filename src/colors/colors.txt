@@ -1,0 +1,8 @@
+#0A0F14 fondo
+#17151F fondo de divs
+#D06942 Cosas importaes | botones importantes
+#5f2f1e Cosas importantes desactivadas
+#D1436C rojo suave
+#6A1435 rojo para peligros
+#692FEE
+#B6C23F

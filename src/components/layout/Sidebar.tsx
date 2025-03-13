@@ -1,14 +1,9 @@
 "use client"
-import { BookUser, Building2, ChevronsDown, ChevronUp, LogOut, PackageSearch, Sailboat, Send, Ship, Users, Warehouse } from "lucide-react";
-import { Outfit } from "next/font/google";
+import { outfit, rock_salt } from "@/fonts";
+import { BookUser, Building2, ChevronsDown, ChevronUp, LayoutDashboard, LogOut, PackageSearch, Sailboat, Send, Ship, Users, Warehouse } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ComponentType, useState } from "react";
-
-
-const outfit = Outfit({
-    subsets: ["latin"]
-})
 
 interface ItemsNavInterface {
     label: string,
@@ -17,13 +12,18 @@ interface ItemsNavInterface {
     subItems?: ItemsNavInterface[]
 }
 
-const sizeIcon: number = 15;
+export const sizeIcon: number = 15;
 
 const itemsNav: ItemsNavInterface[] = [
     {
+        label: "Dashboard",
+        icon: LayoutDashboard,
+        link: "/"
+    },
+    {
         label: "Clientes",
         icon: Users,
-        link: "clients"
+        link: "customers"
     },
     {
         label: "Personal",
@@ -128,10 +128,10 @@ export default function Sidebar() {
 
     return (
         <div className={`${outfit.className} bg-[#17151F] p-2 flex flex-col gap-[1rem] text-sm`}>
-            <div className="flex flex-col justify-center items-center mt-5">
+            <div className="flex flex-col justify-center items-center mt-5 gap-2">
                 <Ship size={30} className="border rounded-full " />
-                <h1>
-                    Dashboard
+                <h1 className={rock_salt.className}>
+                    APP
                 </h1>
             </div>
             {/* <div
