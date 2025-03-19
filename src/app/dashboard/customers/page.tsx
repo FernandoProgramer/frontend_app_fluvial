@@ -1,8 +1,10 @@
 import { sizeIcon } from "@/components/layout/Sidebar";
-import AddLinkButton from "@/components/ui/AddLinkButton";
+import Button from "@/components/ui/Button";
+import LinkButton from "@/components/ui/LinkButton";
 import Pagination from "@/components/ui/Pagination";
 import Table, { ActionElement, ActionsTable, BodyElements, BodyRow, BodyTable, HeadElement, HeadRow, HeadTable } from "@/components/ui/Table";
-import { ChevronLeft, ChevronRight, Eye, Pencil, Plus } from "lucide-react";
+import { Eye, Pencil, Plus } from "lucide-react";
+import Link from "next/link";
 
 const clientsFakes = [
     {
@@ -44,21 +46,14 @@ const clientsFakes = [
         correo: "andres.torres@example.com",
         telefono: "3121239876",
         direccion: "Diagonal 98 #23-45, Cartagena"
-    }
+    },
 ];
 
 
 export default function ClientsPage() {
     return (
-        <section className="w-full h-full flex flex-col gap-4">
+        <>
             <div className="flex gap-2 justify-between items-center">
-                <h1
-                    className="font-extrabold text-xl"
-                >
-                    CLIENTES
-                </h1>
-
-
                 <div className="p-2 flex gap-2">
                     <span>Viendo</span>
                     <select
@@ -72,20 +67,18 @@ export default function ClientsPage() {
                     </select>
                 </div>
 
-
-                <button
-                    className="p-1 border rounded-md"
-                    type="button"
-                >
+                <Button variant="outline-light">
                     Descargar informe
-                </button>
+                </Button>
 
-                <AddLinkButton link="/customers/add" className="flex gap-2 bg-[#D06942]">
-                    <Plus /><span>Agregar cliente</span>
-                </AddLinkButton>
+                <Button>
+                    <Link href="/dashboard/customers/add/" className="flex items-center gap-2">
+                        <Plus size={sizeIcon} /><span>Agregar cliente</span>
+                    </Link>
+                </Button>
             </div>
 
-            <Table>
+            <Table className="">
                 <HeadTable>
                     <HeadRow>
                         <HeadElement>Documento</HeadElement>
@@ -108,8 +101,8 @@ export default function ClientsPage() {
                             <BodyElements>{client.telefono}</BodyElements>
                             <BodyElements>{client.direccion}</BodyElements>
                             <ActionsTable>
-                                <ActionElement Icon={Pencil} link={`/dashboard/customers/${client.id}`} className="bg-[#692FEE] hover:bg-[#391A82]" />
-                                <ActionElement Icon={Eye} link={`/dashboard/customers/${client.id}`} className="bg-[#B6C23F] hover:bg-[#5B611F]" />
+                                <ActionElement Icon={Pencil} link={`/dashboard/customers/update/${client.id}`} className="bg-[#b6a6db] text-[#692FEE] hover:bg-[#391A82]" />
+                                <ActionElement Icon={Eye} link={`/dashboard/customers/${client.id}`} className="bg-[#aaad7f] text-[#515713] hover:bg-[#515713] hover:text-[#aaad7f]" />
                             </ActionsTable>
                         </BodyRow>
                     ))}
@@ -119,10 +112,8 @@ export default function ClientsPage() {
                             <Pagination />
                         </td>
                     </tr>
-
                 </BodyTable>
             </Table>
-
-        </section >
+        </>
     )
 }

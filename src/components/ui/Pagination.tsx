@@ -8,7 +8,7 @@ function ButtonPage({ children, currentPage }: { children: ReactNode, currentPag
     const inactivePage: string = "border border-[#D06942] text-[#D06942] hover:bg-[#D06942] hover:text-[#17151F]";
     const activePage: string = "bg-[#D06942] text-[#17151F]";
 
-    return <button type="button" className={`p-2 w-[3rem] rounded-sm transition duration-300 ${currentPage === 2 ? activePage : inactivePage}`}>
+    return <button type="button" className={`p-2 w-[3rem] rounded-sm transition duration-300 ${currentPage === 1 ? activePage : inactivePage}`}>
         {children}
     </button>
 

@@ -94,7 +94,7 @@ interface ActionsTableProps {
     className?: string
 }
 export function ActionsTable({ children, className }: ActionsTableProps) {
-    return <td className={`px-6 py-3 flex gap-1 items-center justify-between ${className}`}>
+    return <td className={`px-6 py-3 flex gap-2 items-center justify-between ${className}`}>
         {children}
     </td>
 }
@@ -120,10 +120,11 @@ export function ActionElement({ Icon, className, link }: ActionElementProps) {
  */
 interface TableProps {
     children: ReactNode,
+    className?: string
 }
-export default function Table({ children }: TableProps) {
+export default function Table({ children, className }: TableProps) {
     return (
-        <div className="overflow-x-auto rounded-sm py-4 bg-[#17151F] text-sm text-gray-500">
+        <div className={`overflow-x-auto rounded-sm py-4 bg-[#17151F] text-sm text-gray-500 ${className}`}>
             <table className="w-full border-collapse">
                 {children}
             </table>

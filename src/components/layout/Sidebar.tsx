@@ -2,8 +2,9 @@
 import { outfit, rock_salt } from "@/fonts";
 import { BookUser, Building2, ChevronsDown, ChevronUp, LayoutDashboard, LogOut, PackageSearch, Sailboat, Send, Ship, Users, Warehouse } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { ComponentType, useState } from "react";
+import Button from "../ui/Button";
 
 interface ItemsNavInterface {
     label: string,
@@ -12,7 +13,7 @@ interface ItemsNavInterface {
     subItems?: ItemsNavInterface[]
 }
 
-export const sizeIcon: number = 15;
+export const sizeIcon: number = 20;
 
 const itemsNav: ItemsNavInterface[] = [
     {
@@ -118,7 +119,10 @@ function LinkBox({ item, menuOpen, toggleSubMenu }: { item: ItemsNavInterface, m
     )
 }
 export default function Sidebar() {
-
+    const router = useRouter();
+    function handleLogout() {
+        return router.push('/auth/login');
+    }
 
     const [menuOpen, setMenuOpen] = useState<string | null>(null);
 
@@ -134,18 +138,6 @@ export default function Sidebar() {
                     APP
                 </h1>
             </div>
-            {/* <div
-                className="flex gap-1 items-center bg-[#D06942] p-1 rounded-full font-bold"
-            >
-                <img
-                    className="object-cover w-[3rem] h-[3rem] rounded-full"
-                    src="https://st3.depositphotos.com/12985790/17521/i/450/depositphotos_175218564-stock-photo-smiling-handsome-man-holding-cup.jpg"
-                    alt="Foto de perfil"
-                />
-
-                Fernando Alfonso
-
-            </div> */}
             <nav className="flex flex-col gap-1">
                 {itemsNav.map((item) => (
                     <LinkBox
@@ -157,12 +149,9 @@ export default function Sidebar() {
                 ))}
             </nav>
 
-            <button
-                className="flex gap-1 items-center bg-[#E22259] text-white p-2 rounded-md justify-center"
-                type="button"
-            >
-                <LogOut /> <span>Cerrar Sesión</span>
-            </button>
+            <Button variant="destructive" onClick={handleLogout} className="flex">
+                <LogOut size={sizeIcon} /> <span>Cerrar Sesión</span>
+            </Button>
 
         </div>
     )

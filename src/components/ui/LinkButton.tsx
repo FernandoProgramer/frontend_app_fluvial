@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { LinkProps } from "./LinkSimple";
 
-export default function LinkButton({ children, ...props }: LinkProps) {
+
+export default function LinkButton({ className, children, ...props }: LinkProps) {
     return (
         <Link
-            className="p-2 border rounded-md"
+            className={`p-2 rounded-md ${className}`}
             {...props}
         >
             {children}
