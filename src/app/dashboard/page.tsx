@@ -1,11 +1,12 @@
 import { sizeIcon } from "@/components/layout/Sidebar";
 import Button from "@/components/ui/Button";
-import { Input } from "@/components/ui/Input";
+import { Field, Input } from "@/components/ui/Input";
+import { Label } from "@/components/ui/Label";
 import { Album } from "lucide-react";
 
 export default function Dashboard() {
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-2">
             <div className="flex gap-2.5">
                 <div className="flex flex-col gap-1.5 p-2 text-center">
                     <span>Defaults</span>
@@ -61,6 +62,26 @@ export default function Dashboard() {
                     </div>
                 </div>
             </div>
+            <hr />
+            <div className="flex flex-col gap-5">
+                <div className="grid grid-cols-2 gap-2">
+                    <Input name="inputpassword" errors={{ password: "Minimo 6 caracteres" }} type="password" />
+                    <Input name="input" errors={{}} />
+                    <div>
+                        <Label>
+                            Fecha de nacimiento
+                        </Label>
+                        <Input name="inputdate" errors={{}} type="date" />
+                    </div>
+                </div>
+                <Field>
+                    <Label>
+                        Input label
+                    </Label>
+                    <Input name="input" errors={{}} />
+                </Field>
+            </div>
+
         </div>
     )
 }

@@ -1,5 +1,6 @@
 import Sidebar from '@/components/layout/Sidebar'
-import { outfit } from '@/fonts'
+import { outfit } from '@/theme/fonts'
+import { cn } from '@/utils/utils'
 import { ReactNode } from 'react'
 
 export const metadata = {
@@ -8,9 +9,9 @@ export const metadata = {
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
     return (
-        <div className={`${outfit.className} flex w-full h-screen bg-[#0A0F14]`}>
+        <div className={cn("flex w-full h-screen bg-[#0A0F14] overflow-hidden", outfit.className)}>
             <Sidebar />
-            <section className="p-4 max-w-full flex-1 overflow-y-auto">
+            <section className="p-4 flex-1 overflow-hidden">
                 {children}
             </section>
         </div>

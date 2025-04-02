@@ -1,36 +1,95 @@
-import { InputForm } from "@/components/ui/Input";
-import { LabelForm } from "@/components/ui/Label";
+"use client"
+import Button from "@/components/ui/Button";
 import SectionTitle from "@/components/ui/SectionTitle";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { TypeDocument, typeDocumentOptions } from "@/options/typeDocumentOptions";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { AddCustomerSchema, Gender, MaritalStatus, TypeCustomer } from "@/validations/addCustomer.schema";
+import { Select, SelectItem } from "@/components/ui/Select";
+import FormField from "@/components/ui/FormField";
+
+interface AddCustomerInputs {
+    names: string;
+    lastname: string;
+    typeDocument: TypeDocument;
+    numDocument: string;
+    email: string;
+    phone: string;
+    birthday: string;
+    address: string;
+    nationality: string;
+    gender: Gender;
+    maritalStatus: MaritalStatus;
+    typeCustomer: TypeCustomer;
+    city: string;
+}
 
 export default function AddCustomer() {
-    return <div className="">
-        <SectionTitle>Información personal</SectionTitle>
-        <div className="grid grid-cols-2 gap-4">
-            <div className="flex flex-col text-left justify-center gap-1.5">
-                <LabelForm>Nombres</LabelForm>
-                <InputForm />
-            </div>
-            <div className="flex flex-col text-left justify-center gap-1.5">
-                <LabelForm>Apellidos</LabelForm>
-                <InputForm />
-            </div>
-            <div className="flex flex-col text-left justify-center gap-1.5">
-                <LabelForm>Documento</LabelForm>
-                <InputForm />
-            </div>
-            <div className="flex flex-col text-left justify-center gap-1.5">
-                <LabelForm>Correo Electronico</LabelForm>
-                <InputForm />
-            </div>
-            <div className="flex flex-col text-left justify-center gap-1.5">
-                <LabelForm>Telefono</LabelForm>
-                <InputForm />
-            </div>
-            <div className="flex flex-col text-left justify-center gap-1.5">
-                <LabelForm>Dirección de residencia</LabelForm>
-                <InputForm />
+
+    const { setValue, register, handleSubmit, trigger, formState: { errors } } = useForm<AddCustomerInputs>({
+        resolver: zodResolver(AddCustomerSchema)
+    });
+
+    const onSubmit: SubmitHandler<AddCustomerInputs> = (data) => {
+        console.log("Datos guarados: ", data);
+    }
+
+    return (
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-7">
+
+            {/* Información personal */}
+            <div>
+                <SectionTitle>Información personal</SectionTitle>
+                <div className="grid grid-cols-2 gap-4">
+
+                    {/* <FormField
+                        label="Nombre"
+                        name="names"
+                        register={register}
+                        errors={errors}
+                        inputProps={{ placeholder: "Jhon Doe" }}
+                    />
+                    <FormField
+                        label="Apellidos"
+                        name="lastname"
+                        register={register}
+                        errors={errors}
+                        inputProps={{ placeholder: "Jhon Doe" }}
+                    /> */}
+
+                    {/* <FormField
+                        label="Correo electronico"
+                        name="email"
+                        register={register}
+                        errors={errors}
+                        inputProps={{ placeholder: "example@hotmail.com" }}
+                    /> */}
+
+                    <FormField
+                        type="select"
+                        label="Tipo de documento"
+                        name="typeDocument"
+                        setValue={setValue}
+                        errors={errors}
+                        trigger={trigger}
+                    >
+                        {/* {typeDocumentOptions.map((option) => (
+                            <SelectItem key={option.value} value={option.value}>{option.label}</SelectItem>
+                        ))} */}
+                    </FormField>
+                    {/* <FormField
+                        label="Número de documento"
+                        name="numDocument"  
+                        register={register}
+                        errors={errors}
+                        inputProps={{ placeholder: "1120415241" }}
+                    /> */}
+
+                </div>
             </div>
 
-        </div>
-    </div>
+            <Button>Guardar</Button>
+
+        </form>
+    )
 }

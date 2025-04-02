@@ -1,5 +1,6 @@
 #0A0F14 fondo
 #17151F fondo de divs
+#87868B placeholder
 
 #D06942 Cosas importaes | botones importantes
 #cd3700 Naranja Mas fuerte

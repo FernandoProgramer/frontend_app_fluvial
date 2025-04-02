@@ -1,5 +1,5 @@
 "use client"
-import { outfit, rock_salt } from "@/fonts";
+import { outfit, rock_salt } from "@/theme/fonts";
 import { BookUser, Building2, ChevronsDown, ChevronUp, LayoutDashboard, LogOut, PackageSearch, Sailboat, Send, Ship, Users, Warehouse } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -65,7 +65,7 @@ const itemsNav: ItemsNavInterface[] = [
 function LinkBox({ item, menuOpen, toggleSubMenu }: { item: ItemsNavInterface, menuOpen: string | null, toggleSubMenu: (label: string | null) => void }) {
 
     const path = usePathname();
-    const inactiveLink = "flex gap-2 p-2 items-center hover:text-[#D06942] rounded-md";
+    const inactiveLink = "transition duration-200 flex gap-2 p-2 items-center hover:text-[#D06942] rounded-md";
     const activeLink = inactiveLink + " bg-[#D06942] hover:text-white";
 
     return (
@@ -74,7 +74,7 @@ function LinkBox({ item, menuOpen, toggleSubMenu }: { item: ItemsNavInterface, m
                 item.subItems ? (
                     <div>
                         <button
-                            className="flex gap-2 p-2 justify-between items-center w-ful hover:text-[#D06942]"
+                            className="transition duration-200 flex gap-2 p-2 justify-between items-center w-ful hover:text-[#D06942]"
                             type="button"
                             onClick={() => toggleSubMenu(item.label)}
                         >
@@ -91,7 +91,7 @@ function LinkBox({ item, menuOpen, toggleSubMenu }: { item: ItemsNavInterface, m
                                 {item.subItems.map((subItem: ItemsNavInterface) => (
                                     <Link
                                         key={subItem.label}
-                                        className="p-2 flex gap-2 justify-between items-center hover:text-[#D06942]"
+                                        className="transition duration-200 p-2 flex gap-2 justify-between items-center hover:text-[#D06942]"
                                         href={`/dashboard/${subItem.link}`}
                                     >
                                         <span>{subItem.label}</span>
@@ -131,14 +131,14 @@ export default function Sidebar() {
     }
 
     return (
-        <div className={`${outfit.className} bg-[#17151F] p-2 flex flex-col gap-[1rem] text-sm`}>
+        <div className={`${outfit.className} bg-[#17151F] p-2 flex flex-col gap-[1rem] text-sm h-screen`}>
             <div className="flex flex-col justify-center items-center mt-5 gap-2">
                 <Ship size={30} className="border rounded-full " />
                 <h1 className={rock_salt.className}>
                     APP
                 </h1>
             </div>
-            <nav className="flex flex-col gap-1">
+            <nav className="flex flex-col gap-1 overflow-y-auto">
                 {itemsNav.map((item) => (
                     <LinkBox
                         menuOpen={menuOpen}
@@ -148,11 +148,9 @@ export default function Sidebar() {
                     />
                 ))}
             </nav>
-
             <Button variant="destructive" onClick={handleLogout} className="flex">
                 <LogOut size={sizeIcon} /> <span>Cerrar Sesión</span>
             </Button>
-
         </div>
     )
 }

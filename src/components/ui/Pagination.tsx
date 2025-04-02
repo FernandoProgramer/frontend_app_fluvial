@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 
 function ButtonPage({ children, currentPage }: { children: ReactNode, currentPage: number }) {
 
-    const inactivePage: string = "border border-[#D06942] text-[#D06942] hover:bg-[#D06942] hover:text-[#17151F]";
+    const inactivePage: string = "border border-[#D06942] text-[#D06942] hover:bg-[#D06942] hover:text-[#17151F] cursor-pointer";
     const activePage: string = "bg-[#D06942] text-[#17151F]";
 
     return <button type="button" className={`p-2 w-[3rem] rounded-sm transition duration-300 ${currentPage === 1 ? activePage : inactivePage}`}>
@@ -18,7 +18,7 @@ export default function Pagination() {
 
     return (
         <div className="flex justify-between items-center">
-            <button type="button" className="border-b border-[#5f2f1e] text-[#5f2f1e] flex gap-1 items-center p-2">
+            <button type="button" className="border-b border-[#5f2f1e] text-[#5f2f1e] flex gap-1 items-center p-2 cursor-pointer">
                 <ChevronLeft size={sizeIcon} />
                 <span>
                     Anterior
@@ -30,7 +30,7 @@ export default function Pagination() {
                 <ButtonPage currentPage={3}>3</ButtonPage>
                 <ButtonPage currentPage={4}>4</ButtonPage>
             </div>
-            <button type="button" className="border-b border-[#D06942] text-[#D06942] flex gap-1 items-center p-2 justify-center">
+            <button type="button" className="border-b border-[#D06942] text-[#D06942] flex gap-1 items-center p-2 justify-center cursor-pointer">
                 <span>
                     Siguiente
                 </span>

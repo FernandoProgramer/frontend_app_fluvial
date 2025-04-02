@@ -1,3 +1,4 @@
+import { cn } from "@/utils/utils"
 import { ReactNode } from "react"
 
 interface LabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> {
@@ -6,15 +7,9 @@ interface LabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> {
 }
 
 export function Label({ className, children, ...props }: LabelProps) {
-    return <label className={`font-medium text-md p-2 ${className}`} {...props}>
+    return <label className={cn("font-medium text-md text-gray-400", className)} {...props}>
         {children}
     </label>
 
 }
 
-export function LabelForm({ className, children, ...props }: LabelProps) {
-    return <label className={`font-medium text-sm text-gray-400 ${className}`} {...props}>
-        {children}
-    </label>
-
-}

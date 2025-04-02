@@ -78,7 +78,7 @@ export default function ClientsPage() {
                 </Button>
             </div>
 
-            <Table className="">
+            <Table>
                 <HeadTable>
                     <HeadRow>
                         <HeadElement>Documento</HeadElement>
@@ -86,7 +86,6 @@ export default function ClientsPage() {
                         <HeadElement>Correo</HeadElement>
                         <HeadElement>Telefono</HeadElement>
                         <HeadElement>Dirección</HeadElement>
-
                         {/* Acciones */}
                         <HeadElement>Acciones</HeadElement>
 
@@ -107,11 +106,12 @@ export default function ClientsPage() {
                         </BodyRow>
                     ))}
 
-                    <tr>
-                        <td colSpan={6} className="px-6 py-3 text-center">
+                    <BodyRow className="px-6 py-3 text-center hover:!bg-transparent">
+                        <BodyElements colSpan={6}>
                             <Pagination />
-                        </td>
-                    </tr>
+                        </BodyElements>
+                    </BodyRow>
+
                 </BodyTable>
             </Table>
         </>

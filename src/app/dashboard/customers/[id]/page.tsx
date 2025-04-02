@@ -1,13 +1,9 @@
-"use client"
-import { useParams } from "next/navigation";
 
-export default function CustomerPage() {
+export default function page() {
 
-    const params = useParams();
+    
 
     return (
-        <section>
-            Thi is my id {params.id}
-        </section>
+        <div>page</div>
     )
 }
