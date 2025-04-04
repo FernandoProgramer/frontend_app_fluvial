@@ -3,8 +3,7 @@ import { cn } from "@/utils/utils";
 import { ChevronsUpDown } from "lucide-react";
 import React, { ReactNode, useState } from "react";
 import { sizeIcon } from "../layout/Sidebar";
-import { UseFormSetValue } from "react-hook-form";
-import validateChildren from "@/utils/validateChildren";
+import { UseFormSetValue, UseFormTrigger } from "react-hook-form";
 
 export interface SelectItemProps {
     toggleSelected?: (option: { value: string, label: string }) => void
@@ -14,25 +13,25 @@ export interface SelectItemProps {
 export function SelectItem({ toggleSelected, children, value }: SelectItemProps) {
     return <button className="px-3 py-2 w-full hover:bg-[#413932] rounded-md text-left" type="button" onMouseDown={() => toggleSelected && toggleSelected({ label: children as string, value })}>{children}</button>
 }
+SelectItem.displayName = "SelectItem";
 
 interface SelectProps extends React.HTMLAttributes<HTMLDivElement> {
-    children?: React.ReactElement<SelectItemProps>[],
+    children?: ReactNode,
     name: string
     errors?: any
-    setValue: UseFormSetValue<any>
-    trigger: any
+    setValue?: UseFormSetValue<any>
+    trigger?: UseFormTrigger<any>
 }
 export function Select({ trigger, errors, name, className, setValue, children, ...props }: SelectProps) {
 
-    validateChildren(children, SelectItem)
 
-    const [selected, setSelected] = useState<Record<string, string>>({ Label: "", value: "" });
+    const [selected, setSelected] = useState<Record<string, string>>({ label: "", value: "" });
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
     const toggleSelected = ({ label, value }: { label: string, value: string }): void => {
         setIsOpen(false);
-        setValue(name, value);
-        trigger(name);
+        setValue ? setValue(name, value) : null;
+        trigger ? trigger(name) : null;
         setSelected({ label, value });
     };
 

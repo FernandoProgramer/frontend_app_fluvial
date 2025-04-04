@@ -5,7 +5,6 @@ import ErrorAlert from "./ErrorAlert"
 import React, { HTMLAttributes, InputHTMLAttributes, LabelHTMLAttributes, ReactNode, SelectHTMLAttributes } from "react"
 import { Select, SelectItem, SelectItemProps } from "./Select"
 import { FieldErrors, UseFormSetValue } from "react-hook-form"
-import validateChildren from "@/utils/validateChildren"
 
 interface FormFieldProps extends HTMLAttributes<HTMLDivElement> {
     // para el field
@@ -46,7 +45,6 @@ export default function FormField({
     selectProps = {},
 }: FormFieldProps) {
 
-    validateChildren(children, SelectItem)
 
     const componentMap: Record<
         string,

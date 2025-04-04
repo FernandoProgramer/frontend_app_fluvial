@@ -1,5 +1,4 @@
 import { cn } from "@/utils/utils";
-import validateChildren from "@/utils/validateChildren";
 import Link from "next/link";
 import { AnchorHTMLAttributes, ComponentType, HTMLAttributes, ReactNode, TableHTMLAttributes, TdHTMLAttributes, ThHTMLAttributes } from "react";
 
@@ -11,7 +10,6 @@ interface HeadTableProps extends HTMLAttributes<HTMLTableSectionElement> {
     children: ReactNode,
 }
 export function HeadTable({ children, className, ...props }: HeadTableProps) {
-    validateChildren(children, HeadRow);
     return <thead className={cn("", className)} {...props}>
         {children}
     </thead>
@@ -25,7 +23,6 @@ interface HeadRowProps extends HTMLAttributes<HTMLTableRowElement> {
     children: ReactNode,
 }
 export function HeadRow({ children, className, ...props }: HeadRowProps) {
-    validateChildren(children, HeadElement)
     return <tr className={cn("border-b-4 border-[#0A0F14] text-left ", className)} {...props}>
         {children}
     </tr>
@@ -52,7 +49,6 @@ interface BodyTableProps extends HTMLAttributes<HTMLTableSectionElement> {
     children: ReactNode,
 }
 export function BodyTable({ children, className, ...props }: BodyTableProps) {
-    validateChildren(children, BodyRow)
     return <tbody className={cn("", className)}{...props}>
         {children}
     </tbody>
@@ -66,7 +62,6 @@ interface BodyRowProps extends HTMLAttributes<HTMLTableRowElement> {
     children: ReactNode,
 }
 export function BodyRow({ children, className, ...props }: BodyRowProps) {
-    validateChildren(children, [BodyElements, ActionsTable])
     return <tr className={cn("border-b-4 border-[#0A0F14] hover:bg-[#413932] transition duration-300 text-gray-200", className)} {...props}>
         {children}
     </tr>
@@ -93,7 +88,6 @@ interface ActionsTableProps extends TdHTMLAttributes<HTMLTableCellElement> {
     children: ReactNode,
 }
 export function ActionsTable({ children, className, ...props }: ActionsTableProps) {
-    validateChildren(children, ActionElement)
     return <td className={cn("px-6 py-3 flex gap-2 items-center justify-between", className)} {...props}>
         {children}
     </td>
