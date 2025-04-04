@@ -5,7 +5,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { TypeDocument, typeDocumentOptions } from "@/options/typeDocumentOptions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AddCustomerSchema, Gender, MaritalStatus, TypeCustomer } from "@/validations/addCustomer.schema";
-import { Select, SelectItem } from "@/components/ui/Select";
+import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/Select";
 import FormField from "@/components/ui/FormField";
 
 interface AddCustomerInputs {
@@ -42,14 +42,14 @@ export default function AddCustomer() {
                 <SectionTitle>Información personal</SectionTitle>
                 <div className="grid grid-cols-2 gap-4">
 
-                    {/* <FormField
+                    <FormField
                         label="Nombre"
                         name="names"
                         register={register}
                         errors={errors}
                         inputProps={{ placeholder: "Jhon Doe" }}
                     />
-                    <FormField
+                    {/* <FormField
                         label="Apellidos"
                         name="lastname"
                         register={register}
@@ -73,10 +73,14 @@ export default function AddCustomer() {
                         errors={errors}
                         trigger={trigger}
                     >
-                        {/* {typeDocumentOptions.map((option) => (
-                            <SelectItem key={option.value} value={option.value}>{option.label}</SelectItem>
-                        ))} */}
+                        <SelectTrigger placeholder="Tipo de documento" />
+                        <SelectContent>
+                            {typeDocumentOptions.map((option) => (
+                                <SelectItem key={option.value} value={option.value}>{option.label}</SelectItem>
+                            ))}
+                        </SelectContent>
                     </FormField>
+
                     {/* <FormField
                         label="Número de documento"
                         name="numDocument"  
@@ -84,7 +88,6 @@ export default function AddCustomer() {
                         errors={errors}
                         inputProps={{ placeholder: "1120415241" }}
                     /> */}
-
                 </div>
             </div>
 

@@ -2,11 +2,13 @@ import { sizeIcon } from "@/components/layout/Sidebar";
 import Button from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Label } from "@/components/ui/Label";
+import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/Select";
+import { typeDocumentOptions } from "@/options/typeDocumentOptions";
 import { Album } from "lucide-react";
 
 export default function Dashboard() {
     return (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 overflow-y-auto w-full h-screen">
             <div className="flex gap-2.5">
                 <div className="flex flex-col gap-1.5 p-2 text-center">
                     <span>Defaults</span>
@@ -65,7 +67,7 @@ export default function Dashboard() {
             <hr />
             <div className="flex flex-col gap-5">
                 <div className="grid grid-cols-2 gap-2">
-                    <Input name="input" errors={{}} />
+                    <Input name="name" errors={{}} />
                     <Input name="password" type="password" placeholder="Enter your password" />
                     <div>
                         <Label>
@@ -79,9 +81,6 @@ export default function Dashboard() {
                             <SelectItem key={option.value} value={option.value}>{option.label}</SelectItem>
                         ))}
                     </Select> */}
-
-                    
-
                 </div>
             </div>
 

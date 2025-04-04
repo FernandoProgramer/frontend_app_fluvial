@@ -3,8 +3,8 @@ import { Label } from "./Label"
 import { Input } from "./Input"
 import ErrorAlert from "./ErrorAlert"
 import React, { HTMLAttributes, InputHTMLAttributes, LabelHTMLAttributes, ReactNode, SelectHTMLAttributes } from "react"
-import { Select, SelectItem, SelectItemProps } from "./Select"
 import { FieldErrors, UseFormSetValue } from "react-hook-form"
+import { Select } from "./Select"
 
 interface FormFieldProps extends HTMLAttributes<HTMLDivElement> {
     // para el field
@@ -27,7 +27,7 @@ interface FormFieldProps extends HTMLAttributes<HTMLDivElement> {
     selectProps?: SelectHTMLAttributes<HTMLSelectElement>
     setValue?: UseFormSetValue<any>
     trigger?: any
-    children?: React.ReactElement<SelectItemProps>[]
+    children?: React.ReactElement[]
 }
 export default function FormField({
     type = "input",
