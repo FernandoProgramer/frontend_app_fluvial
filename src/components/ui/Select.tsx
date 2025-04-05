@@ -3,7 +3,7 @@ import { cn } from "@/utils/utils";
 import { ChevronsUpDown } from "lucide-react";
 import * as React from 'react'
 import { sizeIcon } from "../layout/Sidebar";
-import { UseFormSetValue, UseFormTrigger } from "react-hook-form";
+import { FieldErrors, UseFormSetValue, UseFormTrigger } from "react-hook-form";
 
 // ===========================================
 // 1. Contexto para las acciones del `<Select />`
@@ -31,14 +31,18 @@ const useSelectContext = () => {
 // ===========================================
 // 2. Componente principal proveedor del contexto `<Select />`
 // ===========================================
-interface SelectProps extends React.HTMLAttributes<HTMLDivElement> {
-    children: React.ReactNode
-    errors: any
-    name: string
+interface SelectProps
+    extends React.HTMLAttributes<HTMLDivElement> {
+    children:
+    | React.ReactElement<SelectTriggerProps>
+    | React.ReactElement<SelectContentProps>
+    | React.ReactElement<SelectContentProps>[]
+    errors?: any
+    name: any
     setValue?: UseFormSetValue<any>
     trigger?: UseFormTrigger<any>
 }
-export const Select = React.forwardRef<HTMLDivElement, SelectProps>(({ setValue, trigger, className, children, errors, name }, ref) => {
+export const Select = ({ setValue, trigger, className, children, errors, name }: SelectProps) => {
 
     const [isOpen, setIsOpen] = React.useState<boolean>(false);
     const [selected, setSelected] = React.useState<SelectedType>({ label: "", value: "" });
@@ -57,7 +61,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(({ setValue,
         setSelected: handleSelect
 
     }}>
-        <div ref={ref} className={cn("bg-[#17151F] rounded-md focus:outline-none w-ful h-fit cursor-pointer relative",
+        <div className={cn("bg-[#17151F] rounded-md focus:outline-none w-ful h-fit cursor-pointer relative",
             errors?.[name] && "border-[#E22259] border-2",
             className)}
             tabIndex={0}
@@ -66,7 +70,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(({ setValue,
             {children}
         </div>
     </SelectContext.Provider>
-})
+}
 Select.displayName = "Select"
 
 // ===========================================
@@ -75,12 +79,11 @@ Select.displayName = "Select"
 interface SelectTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     placeholder: string
 }
-export const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(({ className, name, placeholder, ...props }, ref) => {
+export const SelectTrigger = ({ className, name, placeholder, ...props }: SelectTriggerProps) => {
 
     const { setIsOpen, isOpen, selected } = useSelectContext();
 
     return <button
-        ref={ref}
         className={cn("px-6 py-3.5 pr-10 flex items-center text-[#87868B] font-light w-full relative",
             selected.value && "text-white font-normal",
             className)}
@@ -92,24 +95,27 @@ export const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerPr
         <ChevronsUpDown size={sizeIcon} className="text-[#87868B] absolute top-1/2 transform -translate-y-1/2 right-3" />
 
     </button>
-})
+}
 SelectTrigger.displayName = "SelectTrigger"
 
 // ===========================================
 // 4. Contenedor para las opciones del `<Select />`
 // ===========================================
 interface SelectContentProps extends React.HTMLAttributes<HTMLDivElement> {
-    children: React.ReactNode
+    children:
+    | React.ReactElement<SelectItemProps>
+    | React.ReactElement<SelectItemProps>[]
+    | React.ReactNode
 }
-export const SelectContent = React.forwardRef<HTMLDivElement, SelectContentProps>(({ className, children, ...props }, ref) => {
+export const SelectContent = ({ className, children, ...props }: SelectContentProps) => {
     const { isOpen } = useSelectContext();
 
     if (!isOpen) return null;
 
-    return <div ref={ref} className={cn("bg-[#17151F] absolute left-0 top-full z-50 mt-1 w-full flex flex-col p-1 rounded-md", className)} {...props}>
+    return <div className={cn("bg-[#17151F] absolute left-0 top-full z-50 mt-1 w-full flex flex-col p-1 rounded-md", className)} {...props}>
         {children}
     </div>
-})
+}
 SelectContent.displayName = "SelectContent"
 
 // ===========================================
@@ -119,14 +125,14 @@ export interface SelectItemProps extends React.ButtonHTMLAttributes<HTMLButtonEl
     children: string
     value: string
 }
-export const SelectItem = React.forwardRef<HTMLButtonElement, SelectItemProps>(({ className, children, value, ...props }, ref) => {
+export const SelectItem = ({ className, children, value, ...props }: SelectItemProps) => {
     const { setSelected } = useSelectContext();
-    return <button ref={ref} className={cn("px-3 py-2 w-full hover:bg-[#413932] rounded-md text-left", className)}
+    return <button className={cn("px-3 py-2 w-full hover:bg-[#413932] rounded-md text-left", className)}
         type="button"
         onMouseDown={() => setSelected({ value, label: children })}
         {...props}
     >
         {children}
     </button>
-})
+}
 SelectItem.displayName = "SelectItem"

@@ -1,6 +1,7 @@
 "use client"
 import { sizeIcon } from "@/components/layout/Sidebar";
 import Button from "@/components/ui/Button";
+import FormField from "@/components/ui/FormField";
 import { Input } from "@/components/ui/Input";
 import LinkForms from "@/components/ui/LinkSimple";
 import { fakeLogin } from "@/services/auth.services";
@@ -57,8 +58,18 @@ export default function Login() {
                         <CircleX size={sizeIcon} /> <span>Usuario o contraseña incorrecta</span>
                     </div>)}
 
-                    <Input register={register} name="email" errors={errors} placeholder="Correo electronico" />
-                    <Input register={register} name="password" errors={errors} type="password" placeholder="Contraseña" />
+                    <FormField
+                        name="email"
+                        errors={errors}
+                        register={register}
+                        inputProps={{ placeholder: "Correo electronico" }}
+                    />
+                    <FormField
+                        name="password"
+                        errors={errors}
+                        register={register}
+                        inputProps={{ placeholder: "Contraseña", type: "password" }}
+                    />
 
                     <div className="p-2">
                         <p className="text-gray-600 font-light text-sm text-center">

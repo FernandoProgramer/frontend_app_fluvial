@@ -13,7 +13,7 @@ interface FormFieldProps extends HTMLAttributes<HTMLDivElement> {
     name: string
 
     // Para el label
-    label: string
+    label?: string
     labelProps?: LabelHTMLAttributes<HTMLLabelElement>;
 
     // para el input
@@ -45,7 +45,6 @@ export default function FormField({
     selectProps = {},
 }: FormFieldProps) {
 
-
     const componentMap: Record<
         string,
         { Component: React.ElementType | string; props: any }
@@ -64,7 +63,7 @@ export default function FormField({
     const errorMessage = errors[name]?.message as string | undefined;
 
     return <div className={cn("flex flex-col gap-2 mb-1", className)}>
-        <Label className={cn("", labelProps.className)} {...labelProps}>{label}</Label>
+        {Label && <Label className={cn("", labelProps.className)} {...labelProps}>{label}</Label>}
         <div className="relative">
             {Component && (
                 <Component

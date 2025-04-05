@@ -8,7 +8,7 @@ import { AddCustomerSchema, Gender, MaritalStatus, TypeCustomer } from "@/valida
 import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/Select";
 import FormField from "@/components/ui/FormField";
 
-interface AddCustomerInputs {
+export interface AddCustomerInputs {
     names: string;
     lastname: string;
     typeDocument: TypeDocument;
@@ -65,7 +65,7 @@ export default function AddCustomer() {
                         inputProps={{ placeholder: "example@hotmail.com" }}
                     /> */}
 
-                    <FormField
+                    {/* <FormField
                         type="select"
                         label="Tipo de documento"
                         name="typeDocument"
@@ -79,7 +79,17 @@ export default function AddCustomer() {
                                 <SelectItem key={option.value} value={option.value}>{option.label}</SelectItem>
                             ))}
                         </SelectContent>
-                    </FormField>
+                    </FormField> */}
+
+                    <Select name="TypeDocument">
+                        <SelectTrigger placeholder="Tipo de documento" />
+                        <SelectContent>
+                            {typeDocumentOptions.map((option) => (
+                                <SelectItem key={option.value} value={option.value}>{option.label}</SelectItem>
+                            ))}
+                            <span>Hola</span>
+                        </SelectContent>
+                    </Select>
 
                     {/* <FormField
                         label="Número de documento"
