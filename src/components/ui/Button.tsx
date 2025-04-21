@@ -2,20 +2,18 @@ import { cn } from '@/utils/utils'
 import { cva, VariantProps } from 'class-variance-authority'
 import { ReactNode } from 'react'
 
-const buttonVariants = cva(
-  "rounded-md text-md transition-all cursor-pointer gap-2 justify-center text-center items-center",
+export const buttonVariants = cva(
+  "rounded-md text-md transition-all cursor-pointer gap-2 justify-center items-center",
   {
     variants: {
       variant: {
-        default: "bg-[#D06942] hover:bg-[#cd3700]",
-        destructive: "bg-[#E22259] hover:bg-[#6A1435]",
-        success: "bg-[#6dc723] hover:bg-[#437d13]",
-        secondary: "bg-[#692FEE] hover:bg-[#4b23a8]",
-        light: "bg-gray-200 text-[#0A0F14] hover:bg-gray-400",
-        outline: "border-2 border-[#D06942] text-[#D06942] hover:bg-[#D06942] hover:text-white",
-        "outline-destructive": "border-2 text-[#E22259] border-[#E22259] hover:bg-[#E22259] hover:text-white",
-        "outline-secondary": "border-2 text-[#692FEE] border-[#692FEE] hover:bg-[#692FEE] hover:text-white",
-        "outline-light": "border-2 text-gray-200 border-gray-200 hover:bg-gray-200 hover:text-[#0A0F14]",
+        primary: "bg-indigo-600 hover:bg-indigo-700 text-white",
+        secondary: "bg-slate-300 hover:bg-slate-400 text-black",
+        success: "bg-emerald-500 hover:bg-emerald-600 text-white",
+        destructive: "bg-rose-600 hover:bg-rose-700 text-white",
+        outline: "border border-slate-400 text-black hover:bg-slate-300",
+        ghost: "bg-transparent hover:bg-black/10 text-black",
+        link: "hover:underline"
       },
       size: {
         sm: "px-5 py-2 text-sm",
@@ -24,7 +22,7 @@ const buttonVariants = cva(
       }
     },
     defaultVariants: {
-      variant: "default",
+      variant: "primary",
       size: "md",
     },
   }

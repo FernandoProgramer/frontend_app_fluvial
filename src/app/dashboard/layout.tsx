@@ -9,7 +9,7 @@ export const metadata = {
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
     return (
-        <div className={cn("flex w-full h-screen bg-[#0A0F14] overflow-hidden", outfit.className)}>
+        <div className={cn("flex w-full h-screen bg-indigo-50 text-black overflow-hidden", outfit.className)}>
             <Sidebar />
             <section className="p-4 flex-1 overflow-hidden">
                 {children}

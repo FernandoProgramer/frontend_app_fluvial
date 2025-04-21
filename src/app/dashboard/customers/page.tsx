@@ -2,6 +2,7 @@ import { sizeIcon } from "@/components/layout/Sidebar";
 import Button from "@/components/ui/Button";
 import LinkButton from "@/components/ui/LinkButton";
 import Pagination from "@/components/ui/Pagination";
+import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/Select";
 import Table, { ActionElement, ActionsTable, BodyElements, BodyRow, BodyTable, HeadElement, HeadRow, HeadTable } from "@/components/ui/Table";
 import { Eye, Pencil, Plus } from "lucide-react";
 import Link from "next/link";
@@ -56,18 +57,17 @@ export default function ClientsPage() {
             <div className="flex gap-2 justify-between items-center">
                 <div className="p-2 flex gap-2">
                     <span>Viendo</span>
-                    <select
-                        className="focus:outline-none p-0.5 border border-gray-700 rounded-md bg-blue-900"
-                        name="showing"
-                        id="showing"
-                    >
-                        <option value="5">5</option>
-                        <option value="10">10</option>
-                        <option value="15">15</option>
-                    </select>
+                    <Select name="view">
+                        <SelectTrigger placeholder="" />
+                        <SelectContent>
+                            <SelectItem value="5">5</SelectItem>
+                            <SelectItem value="10">10</SelectItem>
+                            <SelectItem value="15">15</SelectItem>
+                        </SelectContent>
+                    </Select>
                 </div>
 
-                <Button variant="outline-light">
+                <Button variant="ghost">
                     Descargar informe
                 </Button>
 

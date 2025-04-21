@@ -2,7 +2,7 @@ import { cn } from "@/utils/utils"
 import { ReactNode } from "react"
 
 interface SectionTitleProps {
-    children: ReactNode
+    children: string
     className?: string
 }
 

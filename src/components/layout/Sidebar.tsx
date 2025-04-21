@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { ComponentType, useState } from "react";
 import Button from "../ui/Button";
+import { cn } from "@/utils/utils";
 
 interface ItemsNavInterface {
     label: string,
@@ -13,7 +14,11 @@ interface ItemsNavInterface {
     subItems?: ItemsNavInterface[]
 }
 
-export const sizeIcon: number = 20;
+// export const sizeIcon: number = 20;
+export const propsIcons: Record<string, number> = {
+    size: 20,
+    strokeWidth: 1
+}
 
 const itemsNav: ItemsNavInterface[] = [
     {
@@ -65,8 +70,8 @@ const itemsNav: ItemsNavInterface[] = [
 function LinkBox({ item, menuOpen, toggleSubMenu }: { item: ItemsNavInterface, menuOpen: string | null, toggleSubMenu: (label: string | null) => void }) {
 
     const path = usePathname();
-    const inactiveLink = "transition duration-200 flex gap-2 p-2 items-center hover:text-[#D06942] rounded-md";
-    const activeLink = inactiveLink + " bg-[#D06942] hover:text-white";
+    const inactiveLink = "transition duration-200 flex gap-2 p-2 items-center hover:text-white hover:bg-indigo-600 rounded-md";
+    const activeLink = inactiveLink + " bg-indigo-600 text-white";
 
     return (
         <>
@@ -74,28 +79,28 @@ function LinkBox({ item, menuOpen, toggleSubMenu }: { item: ItemsNavInterface, m
                 item.subItems ? (
                     <div>
                         <button
-                            className="transition duration-200 flex gap-2 p-2 justify-between items-center w-ful hover:text-[#D06942]"
+                            className={cn(inactiveLink)}
                             type="button"
                             onClick={() => toggleSubMenu(item.label)}
                         >
-                            {item.icon ? <item.icon size={sizeIcon} /> : null}
+                            {item.icon ? <item.icon {...propsIcons} /> : null}
                             <span>
                                 {item.label}
                             </span>
-                            {menuOpen ? <ChevronUp className="text-gray-500 ms-11" size={sizeIcon} /> : <ChevronsDown className="text-gray-500 ms-11" size={sizeIcon} />}
+                            {menuOpen ? <ChevronUp className="ms-11" {...propsIcons} /> : <ChevronsDown className="ms-11" {...propsIcons} />}
                         </button>
 
 
                         {menuOpen === item.label && item.subItems && (
-                            <div className="flex flex-col gap-1 border-s border-gray-600 ms-4">
+                            <div className={cn("flex flex-col gap-1 border-s border-gray-600 ms-4")}>
                                 {item.subItems.map((subItem: ItemsNavInterface) => (
                                     <Link
                                         key={subItem.label}
-                                        className="transition duration-200 p-2 flex gap-2 justify-between items-center hover:text-[#D06942]"
+                                        className={cn("transition duration-200 p-2 flex gap-2 justify-between items-center hover:text-indigo-600")}
                                         href={`/dashboard/${subItem.link}`}
                                     >
                                         <span>{subItem.label}</span>
-                                        {subItem.icon && <subItem.icon size={sizeIcon} />}
+                                        {subItem.icon && <subItem.icon {...propsIcons} />}
                                     </Link>
                                 ))}
                             </div>
@@ -108,7 +113,7 @@ function LinkBox({ item, menuOpen, toggleSubMenu }: { item: ItemsNavInterface, m
                         className={path === `/dashboard/${item.link}` ? activeLink : inactiveLink}
                         href={`/dashboard/${item.link}`}
                     >
-                        {item.icon ? <item.icon size={sizeIcon} /> : null}
+                        {item.icon ? <item.icon {...propsIcons} /> : null}
                         <span>
                             {item.label}
                         </span>
@@ -131,7 +136,7 @@ export default function Sidebar() {
     }
 
     return (
-        <div className={`${outfit.className} bg-[#17151F] p-2 flex flex-col gap-[1rem] text-sm h-screen`}>
+        <div className={`${outfit.className} bg-white text-black p-2 flex flex-col gap-[1rem] text-sm h-screen`}>
             <div className="flex flex-col justify-center items-center mt-5 gap-2">
                 <Ship size={30} className="border rounded-full " />
                 <h1 className={rock_salt.className}>
@@ -148,9 +153,9 @@ export default function Sidebar() {
                     />
                 ))}
             </nav>
-            <Button variant="destructive" onClick={handleLogout} className="flex">
+            {/* <Button variant="destructive" onClick={handleLogout} className="flex">
                 <LogOut size={sizeIcon} /> <span>Cerrar Sesión</span>
-            </Button>
+            </Button> */}
         </div>
     )
 }

@@ -1,30 +1,15 @@
-import { TypeDocument } from "@/options/typeDocumentOptions";
+import { CustomerTypeEnum } from "@/options/customerTypeOptions";
+import { GenderOptionsEnum } from "@/options/genderOptions";
+import { MaritalStatusOptionsEnum } from "@/options/maritalStatusOptions";
+import { MunicipalityOptionsEnum } from "@/options/municipalityOptions";
+import { TypeDocumentEnum } from "@/options/typeDocumentOptions";
 import { z } from "zod";
-
-
-export enum Gender {
-    Masculino = "Masculino",
-    Femenino = "Femenino",
-    Otro = "Otro",
-}
-
-export enum MaritalStatus {
-    Soltero = "Soltero",
-    Casado = "Casado",
-    Divorciado = "Divorciado",
-    Viudo = "Viudo",
-}
-
-export enum TypeCustomer {
-    Natural = "Natural",
-    Juridico = "Jurídico",
-}
 
 
 export const AddCustomerSchema = z.object({
     names: z.string().min(2, { message: "El nombre debe tener al menos 2 caracteres." }),
     lastname: z.string().min(2, { message: "El apellido debe tener al menos 2 caracteres." }),
-    typeDocument: z.nativeEnum(TypeDocument, { message: "Elija una de las opciones" }),
+    typeDocument: z.nativeEnum(TypeDocumentEnum, { message: "Elija una de las opciones" }),
     numDocument: z
         .string()
         .min(5, { message: "El número de documento debe tener al menos 5 caracteres." })
@@ -41,8 +26,29 @@ export const AddCustomerSchema = z.object({
     }),
     address: z.string().min(5, { message: "La dirección debe tener al menos 5 caracteres." }),
     nationality: z.string().min(3, { message: "La nacionalidad debe tener al menos 3 caracteres." }),
-    gender: z.nativeEnum(Gender),
-    maritalStatus: z.nativeEnum(MaritalStatus),
-    typeCustomer: z.nativeEnum(TypeCustomer),
-    city: z.string().min(2, { message: "Debe seleccionar una ciudad válida." }),
-});
+    gender: z.nativeEnum(GenderOptionsEnum, { message: "Elija una de las opciones" }),
+    maritalStatus: z.nativeEnum(MaritalStatusOptionsEnum, { message: "Elija una de las opciones" }),
+    typeCustomer: z.nativeEnum(CustomerTypeEnum, { message: "Elija una de las opciones" }),
+    municipality: z.nativeEnum(MunicipalityOptionsEnum, { message: "Elija una de las opciones" }),
+
+    nitCompany: z.string().optional(),
+    nameCompany: z.string().optional(),
+})
+    .superRefine((data, ctx) => {
+        if (data.typeCustomer === CustomerTypeEnum.LEGAL_PERSON) {
+            if (!data.nitCompany || data.nitCompany.trim().length < 5) {
+                ctx.addIssue({
+                    path: ["nitCompany"],
+                    code: z.ZodIssueCode.custom,
+                    message: "El NIT de la empresa debe tener al menos 5 caracteres.",
+                });
+            }
+            if (!data.nameCompany || data.nameCompany.trim().length < 3) {
+                ctx.addIssue({
+                    path: ["nameCompany"],
+                    code: z.ZodIssueCode.custom,
+                    message: "El nombre de la empresa debe tener al menos 3 caracteres.",
+                });
+            }
+        }
+    })

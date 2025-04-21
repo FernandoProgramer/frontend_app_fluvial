@@ -2,7 +2,7 @@
 import { cn } from "@/utils/utils"
 import { CalendarDays, Eye, EyeClosed } from "lucide-react"
 import { useState } from "react"
-import { sizeIcon } from "../layout/Sidebar"
+import { propsIcons } from "../layout/Sidebar"
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     register?: any,
@@ -17,14 +17,15 @@ export function Input({ errors, register, name, className, type = "text", ...pro
     }
     const IconTypeInput = iconMap[type] || null;
     return <div className="flex flex-col w-full h-fit">
-        <div className={cn("bg-[#17151F] overflow-hidden rounded-md w-full h-full flex items-center relative",
+        <div className={cn("bg-white border border-slate-300 overflow-hidden rounded-md w-full h-full flex items-center relative",
             errors && errors[name] && "border-[#E22259] border-2",
             className
         )}>
             <input
                 className={cn(
-                    "px-6 py-4 focus:outline-none placeholder:text-[#87868B] placeholder:font-light w-full h-full",
+                    "px-6 py-4 focus:outline placeholder:text-slate-400 placeholder:font-light w-full h-full",
                     IconTypeInput && "pr-10",
+                    type === "date" && "py-3.5",
                 )}
                 id={name}
                 {...props}
@@ -39,7 +40,7 @@ export function Input({ errors, register, name, className, type = "text", ...pro
                 )}
                 onClick={type === "password" ? () => setShowPassword(!showPassword) : undefined}
             >
-                <IconTypeInput size={sizeIcon} />
+                <IconTypeInput {...propsIcons} />
             </button>}
         </div>
     </div>

@@ -1,8 +1,15 @@
 import { Option } from "@/interfaces/options";
 
+export enum MaritalStatusOptionsEnum {
+  SINGLE = "Solterto",
+  MARRIED = "Casado",
+  DIVORDEC = "Divorciado",
+  WIDOWER = "Viudo",
+}
+
 export const maritalStatusOptions: Option[] = [
-    { value: "Soltero", label: "Soltero" },
-    { value: "Casado", label: "Casado" },
-    { value: "Divorciado", label: "Divorciado" },
-    { value: "Viudo", label: "Viudo" },
-  ];
+  { value: MaritalStatusOptionsEnum.SINGLE, label: "Soltero" },
+  { value: MaritalStatusOptionsEnum.MARRIED, label: "Casado" },
+  { value: MaritalStatusOptionsEnum.DIVORDEC, label: "Divorciado" },
+  { value: MaritalStatusOptionsEnum.WIDOWER, label: "Viudo" },
+];

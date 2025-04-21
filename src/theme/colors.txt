@@ -1,22 +1,6 @@
-#0A0F14 fondo
-#17151F fondo de divs
-#87868B placeholder
+LOS HOVER SON UN TONO MAYOR (hablando de los coroles de tailwind css)
+primario: indigo-600
 
-#D06942 Cosas importaes | botones importantes
-#cd3700 Naranja Mas fuerte
-
-#5f2f1e Cosas importantes desactivadas
-#D1436C rojo suave
-#E22259
-#6A1435 rojo para peligros
-
-#692FEE
-#391A82
-#b6a6db
-
-#B6C23F
-#515713
-#aaad7f
-
-#6dc723 verde
-#437d13 verde
+secundario: slate-300
+success: emerald-500
+destructive: rose-600
