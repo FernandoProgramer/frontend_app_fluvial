@@ -9,16 +9,17 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     name: string,
     errors?: any,
 }
-export function Input({ errors, register, name, className, type = "text", ...props }: InputProps) {
+export function Input({ value, errors, register, name, className, type = "text", ...props }: InputProps) {
     const [showPassword, setShowPassword] = useState(false)
     const iconMap: Record<string, React.ElementType | null> = {
         password: showPassword ? Eye : EyeClosed,
         date: CalendarDays,
     }
     const IconTypeInput = iconMap[type] || null;
+
     return <div className="flex flex-col w-full h-fit">
-        <div className={cn("bg-white border border-slate-300 overflow-hidden rounded-md w-full h-full flex items-center relative",
-            errors && errors[name] && "border-[#E22259] border-2",
+        <div className={cn("bg-white dark:bg-transparent dark:text-amber-600 border border-slate-300 overflow-hidden rounded-md w-full h-full flex items-center relative",
+            errors && errors[name] && "border-rose-600 border",
             className
         )}>
             <input
@@ -40,7 +41,28 @@ export function Input({ errors, register, name, className, type = "text", ...pro
                 )}
                 onClick={type === "password" ? () => setShowPassword(!showPassword) : undefined}
             >
-                <IconTypeInput {...propsIcons} />
+
+                {IconTypeInput && <IconTypeInput {...propsIcons} />}
+                {/* {type === "date"
+                    ? <>
+                        <Popover>
+                            <PopoverTrigger asChild>
+                                <IconTypeInput {...propsIcons} />
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0">
+                                <Calendar
+                                    mode="single"
+                                    // selected={date}
+                                    // onSelect={setDate}
+                                    initialFocus
+                                />
+                            </PopoverContent>
+
+                        </Popover>
+                    </>
+
+                    : <IconTypeInput {...propsIcons} />
+                } */}
             </button>}
         </div>
     </div>

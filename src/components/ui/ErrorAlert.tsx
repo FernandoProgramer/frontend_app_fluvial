@@ -7,7 +7,7 @@ interface ErrorAlertProps extends HTMLAttributes<HTMLSpanElement> {
 export default function ErrorAlert({ children, className, ...props }: ErrorAlertProps) {
 
     return (
-        <span className={cn("text-[#E22259]", className)} {...props}>
+        <span className={cn("text-rose-600", className)} {...props}>
             {children}
         </span>
     )

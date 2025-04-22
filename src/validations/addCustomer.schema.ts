@@ -2,6 +2,7 @@ import { CustomerTypeEnum } from "@/options/customerTypeOptions";
 import { GenderOptionsEnum } from "@/options/genderOptions";
 import { MaritalStatusOptionsEnum } from "@/options/maritalStatusOptions";
 import { MunicipalityOptionsEnum } from "@/options/municipalityOptions";
+import { NationalityOptionsEnum } from "@/options/nationalityOptions";
 import { TypeDocumentEnum } from "@/options/typeDocumentOptions";
 import { z } from "zod";
 
@@ -25,7 +26,7 @@ export const AddCustomerSchema = z.object({
         message: "Debe ingresar una fecha válida.",
     }),
     address: z.string().min(5, { message: "La dirección debe tener al menos 5 caracteres." }),
-    nationality: z.string().min(3, { message: "La nacionalidad debe tener al menos 3 caracteres." }),
+    nationality: z.nativeEnum(NationalityOptionsEnum, { message: "Elija una de las opciones" }),
     gender: z.nativeEnum(GenderOptionsEnum, { message: "Elija una de las opciones" }),
     maritalStatus: z.nativeEnum(MaritalStatusOptionsEnum, { message: "Elija una de las opciones" }),
     typeCustomer: z.nativeEnum(CustomerTypeEnum, { message: "Elija una de las opciones" }),

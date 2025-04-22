@@ -1,5 +1,4 @@
 import { cn } from "@/utils/utils"
-import { ReactNode } from "react"
 
 interface SectionTitleProps {
     children: string
@@ -7,7 +6,7 @@ interface SectionTitleProps {
 }
 
 export default function SectionTitle({ className, children }: SectionTitleProps) {
-    return <h1 className={cn("font-bold text-xl text-[#D06942] text-center flex", className)}>
+    return <h1 className={cn("font-bold text-xl text-center flex text-indigo-600", className)}>
         {children}
     </h1>
 

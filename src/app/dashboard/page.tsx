@@ -10,6 +10,7 @@ export default function page() {
             <Button variant="destructive">destructive</Button>
             <Button variant="ghost">ghost</Button>
             <Button variant="link">link</Button>
+            <Button variant="disabled">disabled</Button>
         </div>
     )
 }

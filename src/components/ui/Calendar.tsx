@@ -1,97 +1,74 @@
 "use client"
 
-import { cn } from '@/utils/utils';
-import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
-import * as React from 'react'
-import { sizeIcon } from '../layout/Sidebar';
-
-function CalendarHead({ currentDate, setCurrentDate }: { currentDate: Date, setCurrentDate: (date: Date) => void }) {
-
-    const mapMonths: string[] = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-
-    const toggleChangeYear = (direction: "next" | "previus") => {
-        const newDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-        newDate.setFullYear(direction === "next" ? currentDate.getFullYear() + 1 : currentDate.getFullYear() - 1);
-        setCurrentDate(newDate);
-    }
-    const toggleChangeMonth = (direction: "next" | "previus") => {
-        const newDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-        newDate.setMonth(direction === "next" ? currentDate.getMonth() + 1 : currentDate.getMonth() - 1);
-        setCurrentDate(newDate);
-    }
+import * as React from "react"
+import { ChevronLeft, ChevronRight } from "lucide-react"
+import { DayPicker } from "react-day-picker"
+import { buttonVariants } from "./Button"
+import { cn } from "@/utils/utils"
 
 
-    return <div className="flex text-center items-center justify-center gap-2 w-full">
-
-        <button type="button" onClick={() => toggleChangeYear("previus")}>
-            <ChevronsLeft size={sizeIcon} />
-        </button>
-        <button type="button" onClick={() => toggleChangeMonth("previus")}>
-            <ChevronLeft size={sizeIcon} />
-        </button>
-
-        <span>
-            {currentDate.getFullYear()}
-        </span>
-        <span>
-            {mapMonths[currentDate.getMonth()]}
-        </span>
-
-        <button type="button" onClick={() => toggleChangeMonth("next")}>
-            <ChevronRight size={sizeIcon} />
-        </button>
-        <button type="button" onClick={() => toggleChangeYear("next")}>
-            <ChevronsRight size={sizeIcon} />
-        </button>
-    </div>
+function Calendar({
+  className,
+  classNames,
+  showOutsideDays = true,
+  ...props
+}: React.ComponentProps<typeof DayPicker>) {
+  return (
+    <DayPicker
+      showOutsideDays={showOutsideDays}
+      className={cn("p-3", className)}
+      classNames={{
+        months: "flex flex-col sm:flex-row gap-2",
+        month: "flex flex-col gap-4",
+        caption: "flex justify-center pt-1 relative items-center w-full",
+        caption_label: "text-sm font-medium",
+        nav: "flex items-center gap-1",
+        nav_button: cn(
+          buttonVariants({ variant: "outline" }),
+          "size-7 items-center justify-center p-1"
+        ),
+        nav_button_previous: "absolute left-1",
+        nav_button_next: "absolute right-1",
+        table: "w-full border-collapse space-x-1",
+        head_row: "flex",
+        head_cell:
+          "text-muted-foreground rounded-md w-8 font-normal text-[0.8rem]",
+        row: "flex w-full mt-2",
+        cell: cn(
+          "relative p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-accent [&:has([aria-selected].day-range-end)]:rounded-r-md",
+          props.mode === "range"
+            ? "[&:has(>.day-range-end)]:rounded-r-md [&:has(>.day-range-start)]:rounded-l-md first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md"
+            : "[&:has([aria-selected])]:rounded-md"
+        ),
+        day: cn(
+          buttonVariants({ variant: "ghost" }),
+          "size-8 p-0 font-normal aria-selected:opacity-100"
+        ),
+        day_range_start:
+          "day-range-start aria-selected:bg-indigo-600 aria-selected:text-indigo-600-foreground",
+        day_range_end:
+          "day-range-end aria-selected:bg-indigo-600 aria-selected:text-indigo-600-foreground",
+        day_selected: cn(buttonVariants({ variant: "primary" }), "p-0 size-8 items-center justify-center"),
+        day_today: "bg-accent text-accent-foreground",
+        day_outside:
+          "day-outside text-muted-foreground aria-selected:text-muted-foreground",
+        day_disabled: "text-muted-foreground opacity-50",
+        day_range_middle:
+          "aria-selected:bg-accent aria-selected:text-accent-foreground",
+        day_hidden: "invisible",
+        ...classNames,
+      }}
+      components={{
+        IconLeft: ({ className, ...props }) => (
+          <ChevronLeft className={cn("size-4", className)} {...props} />
+        ),
+        IconRight: ({ className, ...props }) => (
+          <ChevronRight className={cn("size-4", className)} {...props} />
+        ),
+      }}
+      {...props}
+    />
+  )
 }
 
-function CalendarGrid({ daysInMonth, firstDayOfMonth, setCurrentDate, currentDate }: { daysInMonth: number, firstDayOfMonth: number, setCurrentDate: (date: Date) => void, currentDate: Date }) {
-
-    const mapDays: string[] = ["Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"];
-
-    const toggleSelectedDay = (day: number) => {
-        const newDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
-        setCurrentDate(newDate);
-    }
-
-    return <div>
-        <div className="grid grid-cols-7 gap-2 text-gray-300 text-center items-center">
-            {mapDays.map(day => (
-                <span key={day}>{day}</span>
-            ))}
-        </div>
-
-        <div className="grid grid-cols-7 text-center items-center">
-
-            {Array.from({ length: firstDayOfMonth }).map((_, index) => (
-                <span key={`empty-${index}`}></span>
-            ))}
-
-            {Array.from({ length: daysInMonth }).map((_, index) => (
-                <button className="cursor-pointer hover:bg-gray-900 p-2 rounded-sm" type="button" onClick={() => toggleSelectedDay(index + 1)} key={index}>{index + 1}</button>
-            ))}
-        </div>
-    </div>
-}
-
-export default function Calendar() {
-
-    const [currentDate, setCurrentDate] = React.useState(new Date());
-    const [selectedDate, setSelectedDate] = React.useState<Date>(currentDate);
-
-    React.useEffect(() => {
-        if (currentDate) setSelectedDate(currentDate);
-    }, [selectedDate, currentDate]);
-
-    const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
-    const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
-
-    return <div className={cn("border-2 flex flex-col w-fit h-fit p-2")}>
-        <CalendarHead currentDate={currentDate} setCurrentDate={setCurrentDate} />
-        <CalendarGrid daysInMonth={daysInMonth} firstDayOfMonth={firstDayOfMonth} setCurrentDate={setCurrentDate} currentDate={currentDate} />
-        <div>
-            <span>Dia Seleccionado | {selectedDate.toLocaleDateString()}</span>
-        </div>
-    </div>
-}
+export { Calendar }

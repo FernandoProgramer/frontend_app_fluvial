@@ -4,7 +4,7 @@ import { ChevronsUpDown } from "lucide-react";
 import * as React from 'react'
 import { propsIcons } from "../layout/Sidebar";
 import { FieldErrors, UseFormSetValue, UseFormTrigger } from "react-hook-form";
-import { buttonVariants } from "./Button";
+import Button, { buttonVariants } from "./Button";
 
 // ===========================================
 // 1. Contexto para las acciones del `<Select />`
@@ -63,7 +63,7 @@ export const Select = ({ setValue, trigger, className, children, errors, name }:
 
     }}>
         <div className={cn("bg-white rounded-md focus:outline-none w-ful h-fit cursor-pointer relative",
-            errors?.[name] && "border-[#E22259] border-2",
+            errors?.[name] && "border-rose-500 border",
             className)}
             tabIndex={0}
             onBlur={() => isOpen && setIsOpen(false)}
@@ -128,12 +128,12 @@ export interface SelectItemProps extends React.ButtonHTMLAttributes<HTMLButtonEl
 }
 export const SelectItem = ({ className, children, value, ...props }: SelectItemProps) => {
     const { setSelected } = useSelectContext();
-    return <button className={cn("px-3 py-2 w-full text-left", buttonVariants({variant: "ghost"}) ,className)}
+    return <Button variant="ghost" className={cn("px-3 py-2 w-full text-left", className)}
         type="button"
         onMouseDown={() => setSelected({ value, label: children })}
         {...props}
     >
         {children}
-    </button>
+    </Button>
 }
 SelectItem.displayName = "SelectItem"

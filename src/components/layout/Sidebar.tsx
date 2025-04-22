@@ -17,7 +17,7 @@ interface ItemsNavInterface {
 // export const sizeIcon: number = 20;
 export const propsIcons: Record<string, number> = {
     size: 20,
-    strokeWidth: 1
+    strokeWidth: 1.75
 }
 
 const itemsNav: ItemsNavInterface[] = [
@@ -137,10 +137,11 @@ export default function Sidebar() {
 
     return (
         <div className={`${outfit.className} bg-white text-black p-2 flex flex-col gap-[1rem] text-sm h-screen`}>
-            <div className="flex flex-col justify-center items-center mt-5 gap-2">
-                <Ship size={30} className="border rounded-full " />
-                <h1 className={rock_salt.className}>
-                    APP
+            <div className="flex flex-col justify-center items-center mt-5 gap-2 text-indigo-600">
+                <Ship size={50} className="border rounded-full border-indigo-600" />
+                <h1 className={cn(rock_salt.className)}>
+                    {/* (Fluvial LOgistics Ware System Admin) */}
+                    FLOWSA
                 </h1>
             </div>
             <nav className="flex flex-col gap-1 overflow-y-auto">
