@@ -1,41 +1,41 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { sizeIcon } from "../layout/Sidebar";
 import { ReactNode } from "react";
+import { propsIcons } from "../layout/Sidebar";
+import Button, { buttonVariants } from "./Button";
+import { cn } from "@/utils/utils";
 
 
 function ButtonPage({ children, currentPage }: { children: ReactNode, currentPage: number }) {
 
-    const inactivePage: string = "border border-[#D06942] text-[#D06942] hover:bg-[#D06942] hover:text-[#17151F] cursor-pointer";
-    const activePage: string = "bg-[#D06942] text-[#17151F]";
 
-    return <button type="button" className={`p-2 w-[3rem] rounded-sm transition duration-300 ${currentPage === 1 ? activePage : inactivePage}`}>
+    return <Button variant="ghost" type="button" className={cn(currentPage === 2 && buttonVariants({ variant: "secondary" }))} >
         {children}
-    </button>
+    </Button>
 
 }
 
 export default function Pagination() {
 
     return (
-        <div className="flex justify-between items-center">
-            <button type="button" className="border-b border-[#5f2f1e] text-[#5f2f1e] flex gap-1 items-center p-2 cursor-pointer">
-                <ChevronLeft size={sizeIcon} />
+        <div className="flex gap-2 items-center justify-center">
+            <Button variant="ghost" className="flex gap-1">
+                <ChevronLeft size={20} {...propsIcons} />
                 <span>
                     Anterior
                 </span>
-            </button>
+            </Button>
             <div className="flex gap-2">
                 <ButtonPage currentPage={1}>1</ButtonPage>
                 <ButtonPage currentPage={2}>2</ButtonPage>
                 <ButtonPage currentPage={3}>3</ButtonPage>
                 <ButtonPage currentPage={4}>4</ButtonPage>
             </div>
-            <button type="button" className="border-b border-[#D06942] text-[#D06942] flex gap-1 items-center p-2 justify-center cursor-pointer">
+            <Button variant="ghost" type="button" className="flex gap-1">
                 <span>
                     Siguiente
                 </span>
-                <ChevronRight size={sizeIcon} />
-            </button>
+                <ChevronRight size={20} {...propsIcons} />
+            </Button>
         </div>
     )
 }

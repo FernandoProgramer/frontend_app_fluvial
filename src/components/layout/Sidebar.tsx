@@ -4,7 +4,6 @@ import { BookUser, Building2, ChevronsDown, ChevronUp, LayoutDashboard, LogOut, 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { ComponentType, useState } from "react";
-import Button from "../ui/Button";
 import { cn } from "@/utils/utils";
 
 interface ItemsNavInterface {
@@ -14,11 +13,10 @@ interface ItemsNavInterface {
     subItems?: ItemsNavInterface[]
 }
 
-// export const sizeIcon: number = 20;
 export const propsIcons: Record<string, number> = {
     size: 20,
-    strokeWidth: 1.75
-}
+    strokeWidth: 1.75,
+};
 
 const itemsNav: ItemsNavInterface[] = [
     {

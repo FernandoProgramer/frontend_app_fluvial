@@ -1,6 +1,6 @@
-import { sizeIcon } from "@/components/layout/Sidebar";
+import { propsIcons } from "@/components/layout/Sidebar";
 import Button from "@/components/ui/Button";
-import LinkButton from "@/components/ui/LinkButton";
+import { Input } from "@/components/ui/Input";
 import Pagination from "@/components/ui/Pagination";
 import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/Select";
 import Table, { ActionElement, ActionsTable, BodyElements, BodyRow, BodyTable, HeadElement, HeadRow, HeadTable } from "@/components/ui/Table";
@@ -55,25 +55,17 @@ export default function ClientsPage() {
     return (
         <>
             <div className="flex gap-2 justify-between items-center">
-                <div className="p-2 flex gap-2">
-                    <span>Viendo</span>
-                    <Select name="view">
-                        <SelectTrigger placeholder="" />
-                        <SelectContent>
-                            <SelectItem value="5">5</SelectItem>
-                            <SelectItem value="10">10</SelectItem>
-                            <SelectItem value="15">15</SelectItem>
-                        </SelectContent>
-                    </Select>
-                </div>
 
-                <Button variant="ghost">
+                <div>
+                    <Input type="search" name="search" placeholder="Buscar aqui" />
+                </div>
+                <Button variant="secondary">
                     Descargar informe
                 </Button>
 
                 <Button>
                     <Link href="/dashboard/customers/add/" className="flex items-center gap-2">
-                        <Plus size={sizeIcon} /><span>Agregar cliente</span>
+                        <Plus {...propsIcons} /><span>Agregar cliente</span>
                     </Link>
                 </Button>
             </div>
@@ -100,8 +92,12 @@ export default function ClientsPage() {
                             <BodyElements>{client.telefono}</BodyElements>
                             <BodyElements>{client.direccion}</BodyElements>
                             <ActionsTable>
-                                <ActionElement Icon={Pencil} link={`/dashboard/customers/update/${client.id}`} className="bg-[#b6a6db] text-[#692FEE] hover:bg-[#391A82]" />
-                                <ActionElement Icon={Eye} link={`/dashboard/customers/${client.id}`} className="bg-[#aaad7f] text-[#515713] hover:bg-[#515713] hover:text-[#aaad7f]" />
+                                <Button variant="ghost" className="p-1">
+                                    <Pencil {...propsIcons} />
+                                </Button>
+                                <Button variant="link" className="p-1 !pb-0 border-b-[1.5px] border-transparent hover:border-black rounded-none">
+                                    <Eye {...propsIcons} />
+                                </Button>
                             </ActionsTable>
                         </BodyRow>
                     ))}

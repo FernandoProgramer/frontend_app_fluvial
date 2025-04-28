@@ -1,6 +1,7 @@
 import { cn } from "@/utils/utils";
 import Link from "next/link";
 import { AnchorHTMLAttributes, ComponentType, HTMLAttributes, ReactNode, TableHTMLAttributes, TdHTMLAttributes, ThHTMLAttributes } from "react";
+import { buttonVariants } from "./Button";
 
 /**
  * Componente que define la cabecera de la tabla.
@@ -23,7 +24,7 @@ interface HeadRowProps extends HTMLAttributes<HTMLTableRowElement> {
     children: ReactNode,
 }
 export function HeadRow({ children, className, ...props }: HeadRowProps) {
-    return <tr className={cn("border-b-4 border-[#0A0F14] text-left ", className)} {...props}>
+    return <tr className={cn("border-b border-slate-500 text-left ", className)} {...props}>
         {children}
     </tr>
 }
@@ -36,7 +37,7 @@ interface HeadElementProps extends ThHTMLAttributes<HTMLTableCellElement> {
     children: string,
 }
 export function HeadElement({ children, className, ...props }: HeadElementProps) {
-    return <th className={cn("px-6 py-3", className)} {...props}>
+    return <th className={cn("px-6 py-3 text-slate-500", className)} {...props}>
         {children}
     </th>
 }
@@ -62,7 +63,7 @@ interface BodyRowProps extends HTMLAttributes<HTMLTableRowElement> {
     children: ReactNode,
 }
 export function BodyRow({ children, className, ...props }: BodyRowProps) {
-    return <tr className={cn("border-b-4 border-[#0A0F14] hover:bg-[#413932] transition duration-300 text-gray-200", className)} {...props}>
+    return <tr className={cn("border-b border-slate-400 transition duration-300", buttonVariants({ variant: "ghost" }), className)} {...props}>
         {children}
     </tr>
 }
@@ -76,7 +77,7 @@ interface BodyElementsProps extends TdHTMLAttributes<HTMLTableCellElement> {
     children: ReactNode,
 }
 export function BodyElements({ children, className, ...props }: BodyElementsProps) {
-    return <td className={cn("px-6 py-3", className)}  {...props}>{children}</td>
+    return <td className={cn("px-6 py-3 text-black font-semibold", className)}  {...props}>{children}</td>
 
 }
 
@@ -118,7 +119,7 @@ interface TableProps extends TableHTMLAttributes<HTMLTableElement> {
 }
 export default function Table({ children, className, ...props }: TableProps) {
     return (
-        <div className={cn("overflow-x-auto rounded-sm py-4 bg-[#17151F] text-sm text-gray-500", className)}>
+        <div className={cn("overflow-x-auto rounded-sm py-4 bg-white text-sm", className)}>
             <table className="w-full border-collapse" {...props}>
                 {children}
             </table>

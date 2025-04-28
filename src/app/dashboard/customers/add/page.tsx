@@ -14,6 +14,7 @@ import { nationalityOptions, NationalityOptionsEnum } from "@/options/nationalit
 import { municipalityOptions, MunicipalityOptionsEnum } from "@/options/municipalityOptions";
 import { Save, X } from "lucide-react";
 import { propsIcons } from "@/components/layout/Sidebar";
+import Link from "next/link";
 
 export interface AddCustomerInputs {
     names: string;
@@ -227,10 +228,12 @@ export default function AddCustomer() {
         </div>
 
         <div className="flex justify-between gap-2">
-            <Button variant="destructive" className="flex items-center justify-center gap-1">
-                <span>Cancelar</span>
-                <X {...propsIcons} />
-            </Button>
+            <Link href="/dashboard/customers">
+                <Button variant="destructive" className="flex items-center justify-center gap-1">
+                    <span>Cancelar</span>
+                    <X {...propsIcons} />
+                </Button>
+            </Link>
             <Button className="flex-1 flex items-center justify-center gap-1">
                 <span>Guardar</span>
                 <Save  {...propsIcons} />

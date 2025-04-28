@@ -1,7 +1,7 @@
 "use client"
 import { cn } from "@/utils/utils"
-import { CalendarDays, Eye, EyeClosed } from "lucide-react"
-import { useState } from "react"
+import { CalendarDays, Eye, EyeClosed, Search } from "lucide-react"
+import React, { useState } from "react"
 import { propsIcons } from "../layout/Sidebar"
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -14,6 +14,7 @@ export function Input({ value, errors, register, name, className, type = "text",
     const iconMap: Record<string, React.ElementType | null> = {
         password: showPassword ? Eye : EyeClosed,
         date: CalendarDays,
+        search: Search
     }
     const IconTypeInput = iconMap[type] || null;
 
