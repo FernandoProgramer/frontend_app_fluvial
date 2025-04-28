@@ -93,10 +93,10 @@ export default function ClientsPage() {
                             <BodyElements>{client.direccion}</BodyElements>
                             <ActionsTable>
                                 <Button variant="ghost" className="p-1">
-                                    <Pencil {...propsIcons} />
+                                    <Pencil size={20} {...propsIcons} />
                                 </Button>
                                 <Button variant="link" className="p-1 !pb-0 border-b-[1.5px] border-transparent hover:border-black rounded-none">
-                                    <Eye {...propsIcons} />
+                                    <Eye  size={20}{...propsIcons} />
                                 </Button>
                             </ActionsTable>
                         </BodyRow>
