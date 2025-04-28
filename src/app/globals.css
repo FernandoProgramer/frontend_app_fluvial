@@ -9,9 +9,6 @@
   --font-mono: var(--font-geist-mono);
 }
 
-body {
-  @apply bg-[#0A0F14] text-white m-0 p-0
-}
 
 :root {
   --radius: 0.625rem;

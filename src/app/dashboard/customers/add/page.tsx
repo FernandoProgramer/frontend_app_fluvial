@@ -1,5 +1,5 @@
 "use client"
-import Button from "@/components/ui/Button";
+import Button, { buttonVariants } from "@/components/ui/Button";
 import SectionTitle from "@/components/ui/SectionTitle";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { TypeDocumentEnum, typeDocumentOptions } from "@/options/typeDocumentOptions";
@@ -15,6 +15,11 @@ import { municipalityOptions, MunicipalityOptionsEnum } from "@/options/municipa
 import { Save, X } from "lucide-react";
 import { propsIcons } from "@/components/layout/Sidebar";
 import Link from "next/link";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import { cn } from "@/utils/utils";
+import React, { useState } from "react";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export interface AddCustomerInputs {
     names: string;
@@ -34,17 +39,30 @@ export interface AddCustomerInputs {
 
 export default function AddCustomer() {
 
-    const { watch, setValue, register, handleSubmit, trigger, formState: { errors } } = useForm<AddCustomerInputs>({
+    const { watch, setValue, register, handleSubmit, trigger, formState: { errors, isValid } } = useForm<AddCustomerInputs>({
         resolver: zodResolver(AddCustomerSchema),
+        mode: "onChange"
     });
-
+    const router = useRouter();
     const onSubmit: SubmitHandler<AddCustomerInputs> = (data) => {
         console.log("Datos guarados: ", data);
+        toast.success("Cliente guardado exitosamente");
+        setTimeout(() => {
+            router.push("/dashboard/customers");
+        }, 2000);
+    }
+    const hasErrors = Object.keys(errors).length > 0 || !isValid;
+    const [isOpenDialog, setIsOpenDialog] = useState(false);
+
+    const handleSaveClick = async (e: React.MouseEvent) => {
+        e.preventDefault();
+        const isValid = await trigger();
+        if (!isValid) return;
+        setIsOpenDialog(true);
     }
 
     return <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-7">
 
-        {/* 🧑 Datos personales */}
         <div>
             <SectionTitle>Datos personales</SectionTitle>
             <div className="grid grid-cols-2 gap-4">
@@ -117,7 +135,6 @@ export default function AddCustomer() {
             </div>
         </div>
 
-        {/* 🪪 Documento de identidad */}
         <div>
             <SectionTitle>Documento de identidad</SectionTitle>
             <div className="grid grid-cols-2 gap-4">
@@ -147,7 +164,6 @@ export default function AddCustomer() {
             </div>
         </div>
 
-        {/* 📞 Información de contacto */}
         <div>
             <SectionTitle>Información de contacto</SectionTitle>
             <div className="grid grid-cols-2 gap-4">
@@ -190,7 +206,6 @@ export default function AddCustomer() {
             </div>
         </div>
 
-        {/* 🧾 Información de cliente */}
         <div>
             <SectionTitle>Información de cliente</SectionTitle>
             <div className="grid grid-cols-2 gap-4">
@@ -230,14 +245,42 @@ export default function AddCustomer() {
         <div className="flex justify-between gap-2">
             <Link href="/dashboard/customers">
                 <Button variant="destructive" className="flex items-center justify-center gap-1">
-                    <span>Cancelar</span>
                     <X {...propsIcons} />
+                    <span>Cancelar</span>
                 </Button>
             </Link>
-            <Button className="flex-1 flex items-center justify-center gap-1">
-                <span>Guardar</span>
-                <Save  {...propsIcons} />
+
+            <Button
+                onClick={handleSaveClick}
+                type="button"
+                disabled={hasErrors}
+                className={cn("flex gap-1 items-center justify-center w-full", buttonVariants({ variant: hasErrors ? "disabled" : "primary" }))}
+            >
+                <Save  {...propsIcons} /> <span>Guardar</span>
             </Button>
+
+            <AlertDialog open={isOpenDialog} onOpenChange={setIsOpenDialog}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>¿Guardar cliente?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            Vas a guardar al cliente:
+                            <span className="font-semibold">
+                                {watch("names")} - {watch("typeDocument")}. {watch("numDocument")}
+                            </span>
+                            {watch("typeCustomer") === "Natural"
+                                ? " como persona natural"
+                                : ` como persona ${watch("typeCustomer")}`
+                            }.
+                            Recuerda validar la información.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction type="button" onClick={() => handleSubmit(onSubmit)()}>Continue</AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
         </div>
 
     </form>

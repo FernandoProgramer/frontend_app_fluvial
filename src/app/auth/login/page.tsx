@@ -1,10 +1,9 @@
 "use client"
-import { sizeIcon } from "@/components/layout/Sidebar";
-import Button from "@/components/ui/Button";
+import { propsIcons } from "@/components/layout/Sidebar";
+import Button, { buttonVariants } from "@/components/ui/Button";
 import FormField from "@/components/ui/FormField";
-import { Input } from "@/components/ui/Input";
-import LinkForms from "@/components/ui/LinkSimple";
 import { fakeLogin } from "@/services/auth.services";
+import { cn } from "@/utils/utils";
 import { loginSchema } from "@/validations/login.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CircleChevronLeft, CircleX, LogIn, Ship } from "lucide-react";
@@ -23,7 +22,7 @@ export default function Login() {
     const router = useRouter();
     const [showError, setShowError] = useState<boolean>(false);
     const { register, handleSubmit, formState: { errors } } = useForm<InputsLogin>({
-        resolver: zodResolver(loginSchema),
+        resolver: zodResolver(loginSchema), mode: "onChange"
     });
 
     const onSubmit: SubmitHandler<InputsLogin> = async (data) => {
@@ -46,7 +45,7 @@ export default function Login() {
                 </Link>
 
                 <h1 className="flex flex-col gap-2 justify-center text-center items-center text-[2rem] font-bold">
-                    <Ship size={50} className="text-[#D06942] font-extrabold" />
+                    <Ship size={50} className="text-indigo-600" />
                     <span>¡Hola, bienvenido nuevamente!</span>
                 </h1>
                 <p className="font-medium text-gray-500 text-center">
@@ -54,8 +53,8 @@ export default function Login() {
                 </p>
 
                 <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-[20rem] flex flex-col p-4 gap-2">
-                    {showError && (<div className="text-[#E22259] p-2 border-[#E22259] rounded-md text-center flex gap-1 items-center justify-center border-2">
-                        <CircleX size={sizeIcon} /> <span>Usuario o contraseña incorrecta</span>
+                    {showError && (<div className="text-rose-600 p-2 border-rose-600 rounded-md text-center flex gap-1 items-center justify-center border-2">
+                        <CircleX {...propsIcons} /> <span>Usuario o contraseña incorrecta</span>
                     </div>)}
 
                     <FormField
@@ -73,13 +72,13 @@ export default function Login() {
 
                     <div className="p-2">
                         <p className="text-gray-600 font-light text-sm text-center">
-                            ¿Contraseña olvidada?{" "}
-                            <LinkForms href="#">Recuperar ahora</LinkForms>
+                            ¿Contraseña olvidada? {" "}
+                            <Link href="#" className="font-semibold text-black hover:underline">Recuperar ahora</Link>
                         </p>
                     </div>
                     <div className="p-2 flex justify-between gap-0.5">
                         <Button className="flex w-full items-center justify-center text-center">
-                            <LogIn size={sizeIcon} />
+                            <LogIn {...propsIcons} />
                             <span>Ingresar</span>
                         </Button>
                     </div>
