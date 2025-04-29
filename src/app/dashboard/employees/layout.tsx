@@ -6,9 +6,8 @@ export const metadata = {
 }
 
 export default function EmployeesLayout({ children }: { children: ReactNode }) {
-    return (
-        <SectionLayout titlePage="PERSONAL">
-            {children}
-        </SectionLayout>
-    )
+    return <SectionLayout titlePage="PERSONAL">
+        {children}
+    </SectionLayout>
+
 }

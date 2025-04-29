@@ -2,9 +2,8 @@ import { propsIcons } from "@/components/layout/Sidebar";
 import Button from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import Pagination from "@/components/ui/Pagination";
-import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/Select";
-import Table, { ActionElement, ActionsTable, BodyElements, BodyRow, BodyTable, HeadElement, HeadRow, HeadTable } from "@/components/ui/Table";
-import { Eye, Pencil, Plus } from "lucide-react";
+import Table, { ActionsTable, BodyElements, BodyRow, BodyTable, HeadElement, HeadRow, HeadTable } from "@/components/ui/Table";
+import { Pencil, Plus } from "lucide-react";
 import Link from "next/link";
 
 const clientsFakes = [
@@ -57,7 +56,7 @@ export default function ClientsPage() {
             <div className="flex gap-2 justify-between items-center">
 
                 <div>
-                    <Input type="search" name="search" placeholder="Buscar aqui" />
+                    <Input type="search" name="search" placeholder="Buscar cliente" />
                 </div>
                 <Button variant="secondary">
                     Descargar informe
@@ -94,9 +93,6 @@ export default function ClientsPage() {
                             <ActionsTable>
                                 <Button variant="ghost" className="p-1">
                                     <Pencil size={20} {...propsIcons} />
-                                </Button>
-                                <Button variant="link" className="p-1 !pb-0 border-b-[1.5px] border-transparent hover:border-black rounded-none">
-                                    <Eye  size={20}{...propsIcons} />
                                 </Button>
                             </ActionsTable>
                         </BodyRow>

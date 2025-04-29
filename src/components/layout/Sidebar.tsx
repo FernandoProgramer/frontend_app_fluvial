@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { ComponentType, useState } from "react";
 import { cn } from "@/utils/utils";
+import { buttonVariants } from "../ui/Button";
 
 interface ItemsNavInterface {
     label: string,
@@ -37,7 +38,7 @@ const itemsNav: ItemsNavInterface[] = [
     {
         label: "Vehiculos",
         icon: Sailboat,
-        link: "vehicles"
+        link: "boats"
     },
     {
         label: "Inventario",
@@ -56,7 +57,7 @@ const itemsNav: ItemsNavInterface[] = [
     {
         label: "Bodegas",
         icon: Warehouse,
-        link: "wineries"
+        link: "warehouses"
     },
     {
         label: "Sucursales",
@@ -94,7 +95,7 @@ function LinkBox({ item, menuOpen, toggleSubMenu }: { item: ItemsNavInterface, m
                                 {item.subItems.map((subItem: ItemsNavInterface) => (
                                     <Link
                                         key={subItem.label}
-                                        className={cn("transition duration-200 p-2 flex gap-2 justify-between items-center hover:text-indigo-600")}
+                                        className={cn("!text-left !ps-2", buttonVariants({ variant: "link" }))}
                                         href={`/dashboard/${subItem.link}`}
                                     >
                                         <span>{subItem.label}</span>
