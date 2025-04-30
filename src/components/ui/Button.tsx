@@ -14,7 +14,7 @@ export const buttonVariants = cva(
         outline: "border border-slate-400 text-black hover:bg-slate-300",
         ghost: "bg-transparent hover:bg-black/10 text-black",
         link: "hover:underline",
-        disabled: "bg-gray-500 text-white cursor-not-allowed pointer-events-none"
+        disabled: "bg-gray-300 text-gray-500 !cursor-not-allowed !pointer-events-none"
       },
       size: {
         sm: "px-5 py-2 text-sm",
@@ -36,7 +36,9 @@ export interface ButtonProps
 }
 
 export default function Button({ variant, size, children, className, ...props }: ButtonProps) {
-  return <button className={cn(buttonVariants({ variant, size }), className)} {...props}>
+  return <button
+    className={cn(buttonVariants({ variant, size }), className)} {...props}
+  >
     {children}
   </button >
 }

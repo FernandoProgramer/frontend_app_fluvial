@@ -1,10 +1,13 @@
+"use client"
 import { propsIcons } from "@/components/layout/Sidebar";
 import Button from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import Pagination from "@/components/ui/Pagination";
 import Table, { ActionsTable, BodyElements, BodyRow, BodyTable, HeadElement, HeadRow, HeadTable } from "@/components/ui/Table";
+import { usePagination } from "@/hooks/usePagination";
 import { Pencil, Plus } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 
 const branchesFakes = [
     {
@@ -55,6 +58,16 @@ const branchesFakes = [
 ];
 
 export default function BranchesPage() {
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const { finalIndex, totalPages, initialIndex } = usePagination({
+        totalElements: branchesFakes.length,
+        elementsPerPag: 6,
+        currentPage
+    });
+
+    const branchesPagination = branchesFakes.slice(initialIndex, finalIndex + 1);
+
     return (
         <>
             <div className="flex gap-2 justify-between items-center">
@@ -85,7 +98,7 @@ export default function BranchesPage() {
                     </HeadRow>
                 </HeadTable>
                 <BodyTable>
-                    {branchesFakes.map((branch) => (
+                    {branchesPagination.map((branch) => (
                         <BodyRow key={branch.id}>
                             <BodyElements>{branch.codigo}</BodyElements>
                             <BodyElements>{branch.nombre}</BodyElements>
@@ -103,7 +116,11 @@ export default function BranchesPage() {
 
                     <BodyRow className="px-6 py-3 text-center hover:!bg-transparent">
                         <BodyElements colSpan={7}>
-                            <Pagination />
+                            <Pagination
+                                totalPages={totalPages}
+                                onPageChange={setCurrentPage}
+                                currentPage={currentPage}
+                            />
                         </BodyElements>
                     </BodyRow>
                 </BodyTable>

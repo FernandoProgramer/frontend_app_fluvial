@@ -1,10 +1,13 @@
+"use client"
 import { propsIcons } from "@/components/layout/Sidebar";
 import Button from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import Pagination from "@/components/ui/Pagination";
 import Table, { ActionsTable, BodyElements, BodyRow, BodyTable, HeadElement, HeadRow, HeadTable } from "@/components/ui/Table";
+import { usePagination } from "@/hooks/usePagination";
 import { Pencil, Plus } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 
 const boatsFakes = [
     {
@@ -55,6 +58,16 @@ const boatsFakes = [
 ];
 
 export default function BoatsPage() {
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const { finalIndex, totalPages, initialIndex } = usePagination({
+        totalElements: boatsFakes.length,
+        elementsPerPag: 6,
+        currentPage
+    });
+
+    const boatsPagination = boatsFakes.slice(initialIndex, finalIndex + 1);
+
     return (
         <>
             <div className="flex gap-2 justify-between items-center">
@@ -85,7 +98,7 @@ export default function BoatsPage() {
                     </HeadRow>
                 </HeadTable>
                 <BodyTable>
-                    {boatsFakes.map((boat) => (
+                    {boatsPagination.map((boat) => (
                         <BodyRow key={boat.id}>
                             <BodyElements>{boat.matricula}</BodyElements>
                             <BodyElements>{boat.nombre}</BodyElements>
@@ -103,7 +116,11 @@ export default function BoatsPage() {
 
                     <BodyRow className="px-6 py-3 text-center hover:!bg-transparent">
                         <BodyElements colSpan={7}>
-                            <Pagination />
+                            <Pagination
+                                totalPages={totalPages}
+                                onPageChange={setCurrentPage}
+                                currentPage={currentPage}
+                            />
                         </BodyElements>
                     </BodyRow>
                 </BodyTable>

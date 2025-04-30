@@ -119,7 +119,7 @@ interface TableProps extends TableHTMLAttributes<HTMLTableElement> {
 }
 export default function Table({ children, className, ...props }: TableProps) {
     return (
-        <div className={cn("overflow-x-auto rounded-sm py-4 bg-white text-sm", className)}>
+        <div className={cn("h-fit rounded-sm py-4 bg-white text-sm", className)}>
             <table className="w-full border-collapse" {...props}>
                 {children}
             </table>
