@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/Input";
 import Pagination from "@/components/ui/Pagination";
 import Table, { ActionsTable, BodyElements, BodyRow, BodyTable, HeadElement, HeadRow, HeadTable } from "@/components/ui/Table";
 import { usePagination } from "@/hooks/usePagination";
+import useSearch from "@/hooks/useSearch";
 import { Pencil, Plus } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -58,21 +59,33 @@ const branchesFakes = [
 ];
 
 export default function BranchesPage() {
+    // Barra de búsqueda
+    const [searchTerm, setSearchTerm] = useState("");
+    const branchesFakesFiltered = useSearch({
+        fields: branchesFakes,
+        searchTerm
+    });
 
+    // Paginación
     const [currentPage, setCurrentPage] = useState(1);
     const { finalIndex, totalPages, initialIndex } = usePagination({
-        totalElements: branchesFakes.length,
+        totalElements: branchesFakesFiltered.length,
         elementsPerPag: 6,
         currentPage
     });
-
-    const branchesPagination = branchesFakes.slice(initialIndex, finalIndex + 1);
+    const branchesPagination = branchesFakesFiltered.slice(initialIndex, finalIndex + 1);
 
     return (
         <>
             <div className="flex gap-2 justify-between items-center">
                 <div>
-                    <Input type="search" name="search" placeholder="Buscar sucursal" />
+                    <Input
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        type="search"
+                        name="search"
+                        placeholder="Buscar sucursal"
+                        value={searchTerm}
+                    />
                 </div>
                 <Button variant="secondary">
                     Descargar informe

@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/Input";
 import Pagination from "@/components/ui/Pagination";
 import Table, { ActionsTable, BodyElements, BodyRow, BodyTable, HeadElement, HeadRow, HeadTable } from "@/components/ui/Table";
 import { usePagination } from "@/hooks/usePagination";
+import useSearch from "@/hooks/useSearch";
 import { Pencil, Plus } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -110,20 +111,35 @@ const clientsFakes = [
 
 
 export default function ClientsPage() {
+
+    // Barra de busqueda
+    const [searchTerm, setSearchTerm] = useState("");
+    const clientsFakesFiltered = useSearch({
+        fields: clientsFakes,
+        searchTerm
+    });
+
+
+    // Paginación
     const [currentPage, setCurrentPage] = useState(1);
     const { finalIndex, totalPages, initialIndex } = usePagination({
-        totalElements: clientsFakes.length,
+        totalElements: clientsFakesFiltered.length,
         elementsPerPag: 6,
         currentPage
     });
+    const customersPagination = clientsFakesFiltered.slice(initialIndex, finalIndex + 1);
 
-    const customersPagination = clientsFakes.slice(initialIndex, finalIndex + 1);
     return (
         <>
             <div className="flex gap-2 justify-between items-center">
-
                 <div>
-                    <Input type="search" name="search" placeholder="Buscar cliente" />
+                    <Input
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        type="search"
+                        name="search"
+                        placeholder="Buscar cliente"
+                        value={searchTerm}
+                    />
                 </div>
                 <Button variant="secondary">
                     Descargar informe
