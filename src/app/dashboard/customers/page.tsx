@@ -131,7 +131,7 @@ export default function ClientsPage() {
 
     return (
         <>
-            <div className="flex gap-2 justify-between items-center">
+            <div className="flex items-center w-full justify-between">
                 <div>
                     <Input
                         onChange={(e) => setSearchTerm(e.target.value)}

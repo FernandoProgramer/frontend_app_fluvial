@@ -139,7 +139,7 @@ export default function Sidebar() {
             <div className="flex flex-col justify-center items-center mt-5 gap-2 text-indigo-600">
                 <Ship size={50} className="border rounded-full border-indigo-600" />
                 <h1 className={cn(rock_salt.className)}>
-                    {/* (Fluvial LOgistics Ware System Admin) */}
+                    {/* (Fluvial Logistics Ware System Admin) */}
                     FLOWSA
                 </h1>
             </div>
