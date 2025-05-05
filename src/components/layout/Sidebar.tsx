@@ -95,7 +95,7 @@ function LinkBox({ item, menuOpen, toggleSubMenu }: { item: ItemsNavInterface, m
                                 {item.subItems.map((subItem: ItemsNavInterface) => (
                                     <Link
                                         key={subItem.label}
-                                        className={cn("!text-left !ps-2", buttonVariants({ variant: "link" }))}
+                                        className={cn("!text-left !ps-2", buttonVariants({ variant: "link" }), path.includes(`/dashboard/${subItem.link}`) && "underline")}
                                         href={`/dashboard/${subItem.link}`}
                                     >
                                         <span>{subItem.label}</span>
@@ -153,9 +153,6 @@ export default function Sidebar() {
                     />
                 ))}
             </nav>
-            {/* <Button variant="destructive" onClick={handleLogout} className="flex">
-                <LogOut size={sizeIcon} /> <span>Cerrar Sesión</span>
-            </Button> */}
         </div>
     )
 }

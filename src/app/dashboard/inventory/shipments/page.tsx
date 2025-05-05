@@ -106,7 +106,7 @@ export default function RiverShipmentsPage() {
           Descargar informe
         </Button>
         <Button>
-          <Link href="/dashboard/river-shipments/add/" className="flex items-center gap-2">
+          <Link href="/dashboard/inventory/shipments/add/" className="flex items-center gap-2">
             <Plus {...propsIcons} /><span>Nuevo envío fluvial</span>
           </Link>
         </Button>
